@@ -1,5 +1,3 @@
-# SmarthHealth
-
 # SmartHealth 
 
 SmartHealth es un sistema médico desarrollado bajo una arquitectura de **Monolito Modular** (Modular Monolith). El proyecto integra un frontend reactivo e interactivo con un backend desacoplado por módulos de funcionalidad, asegurando la integridad de los datos y la escalabilidad del sistema.
