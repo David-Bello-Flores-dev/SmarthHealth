@@ -77,6 +77,7 @@ npm run dev
 ```
 
 ## Estructura del proyecto
+```text
 SmartHealth/
 ├── client/          # Frontend en React (Vite)
 │   ├── src/
@@ -88,3 +89,4 @@ SmartHealth/
 │   │   ├── modules/ # Módulos independientes de la aplicación (auth, etc.)
 │   │   └── middleware/
 └── .gitignore       # Archivo de exclusión de Git (node_modules, .env)
+```
