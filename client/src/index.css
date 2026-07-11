@@ -1,111 +1,84 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@theme {
+  /* Paleta de colores para SmartHealth */
+  --color-brand-primary: #0052cc;
+  --color-brand-hover: #0041a3;
+  --color-brand-dark: #0a192f;
+  --color-bg-light: #f8fafc;
+  
+  /* Colores para estados clínicos y alertas */
+  --color-status-success: #10b981;
+  --color-status-warning: #f59e0b;
+  --color-status-danger: #ef4444;
+  --color-status-info: #06b6d4;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* Estilos para el botones */
+@utility btn-base {
+  @apply font-medium px-5 py-2.5 rounded-lg transition-colors duration-200 shadow-sm inline-flex items-center justify-center cursor-pointer text-sm;
+}
+@utility btn-primary {
+  @apply bg-[--color-brand-primary] hover:bg-[--color-brand-hover] text-white;
+}
+@utility btn-secondary {
+  @apply bg-white hover:bg-slate-100 text-slate-700 border border-slate-200;
+}
+@utility btn-danger {
+  @apply bg-[--color-status-danger] hover:bg-red-700 text-white;
+}
+@utility btn-success {
+  @apply bg-[--color-status-success] hover:bg-emerald-700 text-white;
 }
 
-body {
-  margin: 0;
+/* Estilos para el Inputs */
+@utility sh-input-wrapper {
+  @apply flex flex-col gap-1.5 w-full;
+}
+@utility sh-input-label {
+  @apply text-sm font-medium text-slate-700;
+}
+@utility sh-input {
+  @apply w-full px-3 py-2 border rounded-lg shadow-xs text-sm bg-white text-slate-950 focus:outline-hidden focus:ring-2 focus:ring-[--color-brand-primary]/20 focus:border-[--color-brand-primary] transition-all border-slate-200;
+}
+@utility sh-input-error {
+  @apply border-[--color-status-danger] focus:ring-red-200 focus:border-[--color-status-danger];
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+/* Estilos para el contenedor base para tarjetas (Dashboard, Alertas, etc.) */
+@utility sh-card {
+  @apply bg-white border border-slate-100 rounded-xl p-6 shadow-xs;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* Estilos para los estatus */
+@utility badge-base {
+  @apply px-2.5 py-1 text-xs font-semibold rounded-full border inline-block w-fit;
+}
+@utility badge-success {
+  @apply bg-emerald-50 text-[--color-status-success] border-emerald-200;
+}
+@utility badge-warning {
+  @apply bg-amber-50 text-[--color-status-warning] border-amber-200;
+}
+@utility badge-danger {
+  @apply bg-red-50 text-[--color-status-danger] border-red-200;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+/* Estilizado para contenido de tablas */
+@utility sh-table-container {
+  @apply w-full overflow-x-auto rounded-xl border border-slate-100 bg-white shadow-xs;
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+@utility sh-table {
+  @apply w-full text-left text-sm text-slate-600 border-collapse;
 }
-p {
-  margin: 0;
+@utility sh-thead {
+  @apply bg-slate-50 text-xs font-semibold text-slate-700 uppercase border-b border-slate-100;
 }
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+@utility sh-th {
+  @apply px-6 py-4;
 }
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+@utility sh-td {
+  @apply px-6 py-4 border-b border-slate-100 align-middle;
 }
