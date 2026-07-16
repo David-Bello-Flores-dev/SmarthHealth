@@ -1,0 +1,185 @@
+.expediente-page {
+  padding: 32px 40px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1f2937;
+}
+
+.expediente-page__header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.expediente-page__header p {
+  color: #6b7280;
+  margin: 4px 0 24px;
+  font-size: 14px;
+}
+
+.expediente-page__state {
+  padding: 60px;
+  text-align: center;
+  color: #6b7280;
+}
+.expediente-page__state--error {
+  color: #b91c1c;
+}
+
+/* --- Patient card --- */
+.patient-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+}
+
+.patient-card__identity {
+  display: flex;
+  gap: 16px;
+}
+
+.patient-card__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #2563eb;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.patient-card__label {
+  font-size: 12px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.patient-card h2 {
+  margin: 2px 0;
+  font-size: 18px;
+}
+
+.patient-card__birth {
+  color: #6b7280;
+  font-size: 13px;
+  margin: 0 0 10px;
+}
+
+.patient-card__vitals {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 16px 40px;
+  margin: 0;
+}
+.patient-card__vitals dt {
+  font-size: 12px;
+  color: #9ca3af;
+}
+.patient-card__vitals dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* --- Chronic conditions --- */
+.chronic-conditions {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* --- Lab results --- */
+.lab-results {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.lab-results__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+.lab-results__header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.lab-results__date {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.lab-results__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lab-results__row {
+  display: grid;
+  grid-template-columns: 12px 1fr auto auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+.lab-results__row:last-child {
+  border-bottom: none;
+}
+
+.lab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.lab-dot--normal { background: #22c55e; }
+.lab-dot--elevado { background: #eab308; }
+.lab-dot--bajo { background: #3b82f6; }
+
+.lab-results__name {
+  font-weight: 500;
+}
+.lab-results__ref {
+  color: #9ca3af;
+  font-size: 12px;
+}
+.lab-results__value {
+  font-weight: 600;
+}
+
+.status-badge {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+.status-badge--normal { background: #dcfce7; color: #15803d; }
+.status-badge--elevado { background: #fef9c3; color: #a16207; }
+.status-badge--bajo { background: #dbeafe; color: #1e40af; }
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .expediente-page { padding: 20px; }
+  .patient-card { flex-direction: column; }
+  .lab-results__row {
+    grid-template-columns: 12px 1fr auto;
+    row-gap: 4px;
+  }
+  .lab-results__ref { grid-column: 2 / 4; }
+}

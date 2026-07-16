@@ -1,0 +1,53 @@
+/* ==========================================================================
+   Estilos compartidos entre pantallas del portal de paciente.
+   Importar UNA sola vez en main.jsx (o App.jsx), nunca por página.
+   ========================================================================== */
+
+/* --- Botón primario "Nueva cita" (Resumen + MisCitas) --- */
+.btn-nueva-cita {
+  background: #2f5fd1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-nueva-cita:hover { background: #274ea8; }
+
+/* --- Badge de estatus de cita (Resumen + MisCitas) --- */
+.estatus-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.estatus-badge--confirmada { background: #dcfce7; color: #15803d; }
+.estatus-badge--pendiente { background: #fef9c3; color: #a16207; }
+.estatus-badge--cancelada { background: #fee2e2; color: #b91c1c; }
+
+/* --- Pills (ExpedienteClinico: alergias / padecimientos crónicos) --- */
+.pill-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.pill {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.pill--alert { background: #fee2e2; color: #b91c1c; }
+.pill--info { background: #dbeafe; color: #1e40af; }
+
+/* --- Estado de carga / error genérico (todas las pantallas) --- */
+.page-state {
+  padding: 60px;
+  text-align: center;
+  color: #6b7280;
+}
+.page-state--error { color: #b91c1c; }

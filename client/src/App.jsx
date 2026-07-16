@@ -1,12 +1,4 @@
-import React from "react";
-import PublicLanding from "./features/public-site/PublicLanding";
-
-function App(){
-  return (
-    <>
-      <PublicLanding />
-    </>
-  );
+import { AppRoutes } from './routes/AppRoutes';
+export default function App() {
+  return <AppRoutes />;
 }
-
-export default App
