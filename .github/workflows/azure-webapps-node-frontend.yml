@@ -24,7 +24,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: frontendApp    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './client'      # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: './client/dist'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '25.2.1'                # set this to the node version to use
 
 permissions:
@@ -74,5 +74,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.AZURE_DEPLOYMENT_FRONT }}
+        publish-profile: ${{ secrets.AZURE_FRONT_DEPLOYMENT }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
