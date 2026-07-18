@@ -1,0 +1,52 @@
+####################### SCRIPT HECHO 100% CON DEEPSEEK PARA PRUEBAS DE PIPELINE #######################################
+
+on:
+  pull_request: 
+    branches: [ "main" ]
+    paths:
+      - 'client/**'
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: 'frontendApp'
+  NODE_VERSION: '25.2.1'
+
+jobs:
+  deploy-frontend:  # UN SOLO JOB
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: client/package-lock.json
+
+    - name: Debug - Verificar estructura
+      run: |
+        echo "=== Contenido de client/ ==="
+        ls -la client/
+        echo "=== Scripts en package.json ==="
+        cat client/package.json | grep -A 5 '"scripts"'
+
+    - name: Instalar dependencias
+      run: |
+        cd client
+        npm install
+
+    - name: Build frontend
+      run: |
+        cd client
+        npm run build
+        echo "=== Contenido de client/dist/ ==="
+        ls -la dist/  # Verificamos que se creó
+
+    - name: Deploy a Azure
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_DEPLOYMENT_FRONT }}
+        package: ./client/dist  # Aquí usamos el build directo
