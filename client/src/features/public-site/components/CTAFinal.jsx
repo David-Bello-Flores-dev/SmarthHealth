@@ -11,10 +11,9 @@ export const CTAFinal = () => {
               Comienza hoy mismo
             </h2>
             <p className="text-blue-100 text-sm md:text-base max-w-xl">
-              Únete a más de 12,000 pacientes que ya gestionan su salud de forma inteligente con SmartHealth.[cite: 1]
+              Únete a más de 12,000 pacientes que ya gestionan su salud de forma inteligente con SmartHealth.
             </p>
             <div className="flex justify-center mt-2">
-              {/* Pasamos la nueva clase limpia que creamos en el index.css */}
               <Button variant="secondary" className="btn-cta-white px-8 py-3 font-bold">
                 Crear cuenta gratuita
               </Button>
