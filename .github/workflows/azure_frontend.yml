@@ -1,4 +1,4 @@
-####################### SCRIPT HECHO 100% CON DEEPSEEK PARA PRUEBAS DE PIPELINE ######################################
+####################### SCRIPT HECHO 100% CON DEEPSEEK PARA PRUEBAS DE PIPELINE #######################################
 
 on:
   pull_request: 
