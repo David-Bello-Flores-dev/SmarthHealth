@@ -7,7 +7,7 @@ on:
     branches:
       - 'Feat_*'
     paths:
-      - 'server/src/**'
+      - 'server/**'
   pull_request:
     branches:
       - 'QA'
@@ -27,11 +27,12 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'npm'
-          cache-dependency-path: './package-lock.json'
+          cache-dependency-path: './sever/package-lock.json'
 
       - name: Validar Servidor
         run: |
           # Si los comandos del backend los corres desde la raíz usando el package.json principal:
+          cd server
           npm install
           npm run build --if-present
           npm run test --if-present
