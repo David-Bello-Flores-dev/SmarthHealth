@@ -1,0 +1,147 @@
+.resumen-page {
+  padding: 32px 40px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1f2937;
+}
+
+.resumen-page__state { padding: 60px; text-align: center; color: #6b7280; }
+.resumen-page__state--error { color: #b91c1c; }
+
+/* --- Greeting --- */
+.greeting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+.greeting-header h1 { margin: 0; font-size: 22px; font-weight: 700; }
+.greeting-header__date {
+  margin: 4px 0 0;
+  color: #9ca3af;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+
+/* --- Vitals cards --- */
+.vitals-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.vital-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  gap: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.vital-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.vital-card__icon--heart { background: #FEE2E2; color: #DC2626; }
+.vital-card__icon--pressure { background: #E0E7FF; color: #4338CA; }
+.vital-card__icon--temp { background: #FFEDD5; color: #C2410C; }
+.vital-card__icon--glucose { background: #DBEAFE; color: #1D4ED8; }
+
+.vital-card__label { margin: 0; font-size: 12px; color: #9ca3af; }
+.vital-card__value { margin: 2px 0 4px; font-size: 18px; font-weight: 700; }
+.vital-card__value span { font-size: 12px; font-weight: 500; color: #9ca3af; }
+
+.vital-card__status {
+  font-size: 11px;
+  font-weight: 600;
+}
+.vital-card__status--normal { color: #15803d; }
+.vital-card__status--elevado { color: #a16207; }
+.vital-card__status--bajo { color: #1d4ed8; }
+
+/* --- Grid: chart + appointments --- */
+.resumen-page__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* --- Chart card --- */
+.bp-chart {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.bp-chart__header h3 { margin: 0; font-size: 15px; }
+.bp-chart__header p { margin: 2px 0 12px; font-size: 12px; color: #9ca3af; }
+
+/* --- Upcoming appointments card --- */
+.upcoming-appointments {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.upcoming-appointments__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.upcoming-appointments__header h3 { margin: 0; font-size: 15px; }
+.upcoming-appointments__header a {
+  font-size: 12.5px;
+  color: #2f5fd1;
+  text-decoration: none;
+  font-weight: 600;
+}
+.upcoming-appointments__empty { font-size: 13px; color: #9ca3af; }
+
+.upcoming-appointments__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.upcoming-appointment {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.upcoming-appointment__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2f5fd1;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.upcoming-appointment__info { flex: 1; }
+.upcoming-appointment__info strong { display: block; font-size: 13.5px; }
+.upcoming-appointment__info p { margin: 1px 0; font-size: 12px; color: #6b7280; }
+.upcoming-appointment__time { font-size: 11.5px; color: #9ca3af; }
+
+
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .vitals-cards { grid-template-columns: repeat(2, 1fr); }
+  .resumen-page__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .vitals-cards { grid-template-columns: 1fr; }
+}

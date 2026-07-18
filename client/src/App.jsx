@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import PublicLanding from "./features/public-site/PublicLanding";
 import PatientDashboard from "./features/PatientDashBoard/PatientDashboard";
@@ -16,3 +17,9 @@ function App(){
 }
 
 export default App
+=======
+import { AppRoutes } from './routes/AppRoutes';
+export default function App() {
+  return <AppRoutes />;
+}
+>>>>>>> c9eb57c3578a46a4fbcf6675b2340b8bd2102b35
