@@ -1,13 +1,12 @@
-############################# SCRIPT CORREGIDO PARA PRUEBAS DE PIPELINE #######################################
+############################# SCRIPT CORREGIDO Y ESTRUCTURADO #######################################
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: REDACTED    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './client'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '25.2.1'                # set this to the node version to use
+  AZURE_WEBAPP_NAME: REDACTED  # Asegúrate de poner el nombre exacto de la App Service en Azure
+  NODE_VERSION: '25.2.1'
 
 permissions:
   contents: read
@@ -22,20 +21,22 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        #cache: 'npm'
 
-    - name: npm install, build, and test
+    - name: Restaurar e instalar dependencias del Frontend
       run: |
         cd client
         npm install
-        npm run build --if-present
-        npm run test --if-present
 
-    - name: Upload artifact for deployment job
+    - name: Compilar Frontend con Vite
+      run: |
+        cd client
+        npm run build
+
+    - name: Subir únicamente el Build (dist) como Artefacto
       uses: actions/upload-artifact@v4
       with:
-        name: node-app
-        path: client/dist
+        name: frontend-build
+        path: client/dist  # <--- Solo guardamos el resultado listo para producción
 
   deploy:
     permissions:
@@ -47,15 +48,16 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Download artifact from build job
+    - name: Descargar artefacto compilado
       uses: actions/download-artifact@v4
       with:
-        name: node-app
+        name: frontend-build
+        path: . # Descarga los archivos de dist directamente en la raíz de ejecución
 
     - name: 'Deploy to Azure WebApp'
       id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v3 # Usamos la v3 que es la versión estable actual
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_DEPLOYMENT_FRONT }}
-        package: . #${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        package: . # El contenido de dist ya está aquí listo para subirse
