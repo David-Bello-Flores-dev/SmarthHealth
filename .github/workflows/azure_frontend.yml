@@ -55,7 +55,7 @@ jobs:
     - name: Iniciar sesión en Azure (Service Principal)
       uses: azure/login@v2
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }} # Aquí debes tener guardado tu JSON del Service Principal
+        creds: ${{ secrets.AZURE_DEPLOYMENT_FRONT }} # Aquí debes tener guardado tu JSON del Service Principal
 
     - name: Desplegar en Azure WebApp
       id: deploy-to-webapp
