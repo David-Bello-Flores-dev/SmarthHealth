@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: REDACTED           # Nombre exacto de tu App Service en Azure
-  NODE_VERSION: '25.2.1'                  # Node 25 es experimental; se recomienda usar versiones LTS como 22 o 20
-  AZURE_WEBAPP_PACKAGE_PATH: '.'       # El artefacto se descargará en la raíz del job de deploy
+  AZURE_WEBAPP_NAME: REDACTED # Nombre exacto de tu App Service en Azure
+  NODE_VERSION: '25.2.1'
+  AZURE_WEBAPP_PACKAGE_PATH: '.' # El artefacto se descargará en la raíz del job de deploy
 
 permissions:
   contents: read
@@ -24,13 +24,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        cache-dependency-path: client/package-lock.json
 
     - name: Instalar dependencias y compilar Frontend (Vite)
       run: |
         cd client
-        npm ci
+        npm install
         npm run build
 
     - name: Subir únicamente el Build (dist) como Artefacto
@@ -52,14 +50,10 @@ jobs:
         name: frontend-build
         path: . # Descarga el contenido de dist directamente en la raíz
 
-    - name: Iniciar sesión en Azure (Service Principal)
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.AZURE_DEPLOYMENT_FRONT }} # Aquí debes tener guardado tu JSON del Service Principal
-
     - name: Desplegar en Azure WebApp
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_DEPLOYMENT_FRONT }} # Pasa el XML del Publish Profile directamente
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
