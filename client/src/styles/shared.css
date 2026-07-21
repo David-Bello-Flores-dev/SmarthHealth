@@ -3,6 +3,27 @@
    Importar UNA sola vez en main.jsx (o App.jsx), nunca por página.
    ========================================================================== */
 
+
+/* ==========================================================================
+   RESET GLOBAL - va primero, antes de cualquier otra regla del archivo
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1f2937;
+  -webkit-font-smoothing: antialiased;
+}
+
+
 /* --- Botón primario "Nueva cita" (Resumen + MisCitas) --- */
 .btn-nueva-cita {
   background: #2f5fd1;

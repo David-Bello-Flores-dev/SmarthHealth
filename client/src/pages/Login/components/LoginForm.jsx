@@ -7,7 +7,7 @@ import { useAuth } from '../../../context/AuthContext';
 const HOME_BY_ROLE = {
   paciente: '/paciente/resumen',
   medico: '/medico/resumen',
-  secretaria: '/secretaria/agenda',
+  secretaria: '/secretaria/resumen',
 };
 
 export const LoginForm = () => {

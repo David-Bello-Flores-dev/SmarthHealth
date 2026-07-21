@@ -10,6 +10,14 @@ const ROUTE_META = {
   '/paciente/citas': { title: 'Mis Citas', subtitle: 'SmartHealth · Paciente' },
   '/paciente/expediente': { title: 'Mi Expediente', subtitle: 'SmartHealth · Paciente' },
   '/paciente/recetas': { title: 'Recetas', subtitle: 'SmartHealth · Paciente' },
+  '/medico/resumen': { title: 'Resumen', subtitle: 'SmartHealth · Médico' },
+  '/medico/agenda': { title: 'Agenda', subtitle: 'SmartHealth · Médico' },
+  '/medico/expedientes': { title: 'Expedientes', subtitle: 'SmartHealth · Médico' },
+  '/medico/recetas': { title: 'Recetas', subtitle: 'SmartHealth · Médico' },
+  '/medico/pacientes': { title: 'Pacientes', subtitle: 'SmartHealth · Médico' },
+  '/secretaria/resumen': { title: 'Resumen', subtitle: 'SmartHealth · Recepción' },
+  '/secretaria/citas': { title: 'Citas', subtitle: 'SmartHealth · Recepción' },
+  '/secretaria/expedientes': { title: 'Expedientes', subtitle: 'SmartHealth · Recepción' }
 };
 
 export const AppLayout = () => {
@@ -19,7 +27,7 @@ export const AppLayout = () => {
 
   return (
     <div className="app-layout">
-      <Sidebar userName={user.nombre} userRole={user.rol === 'paciente' ? 'Paciente' : user.rol} />
+      <Sidebar userName={user.nombre} role={user.rol} />
 
       <div className="app-layout__main">
         <TopBar
@@ -28,7 +36,8 @@ export const AppLayout = () => {
           userInitial={user.nombre.trim().charAt(0).toUpperCase()}
         />
         <div className="app-layout__content">
-          <Outlet context={{ pacienteId: user.pacienteId }} />
+          {/* pacienteId solo aplica al rol paciente; doctorId al rol médico */}
+          <Outlet context={{ pacienteId: user.pacienteId, doctorId: user.doctorId }} />
         </div>
       </div>
     </div>

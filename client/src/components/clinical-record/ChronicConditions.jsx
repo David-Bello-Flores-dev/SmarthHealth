@@ -1,4 +1,5 @@
 import React from 'react';
+import './ClinicalRecord.css'
 
 export const ChronicConditions = ({ padecimientos }) => {
   if (!padecimientos?.length) return null;

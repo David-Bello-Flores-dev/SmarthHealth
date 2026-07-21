@@ -1,8 +1,8 @@
 import { useOutletContext } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { PatientSummaryCard } from './components/PatientSummaryCard';
-import { ChronicConditions } from './components/ChronicConditions';
-import { LabResults } from './components/LabResults';
+import { PatientSummaryCard } from '@/components/clinical-record/PatientSummaryCard';
+import { ChronicConditions } from '@/components/clinical-record/ChronicConditions';
+import { LabResults } from '@/components/clinical-record/LabResults';
 import './ExpedienteClinico.css';
 
 // TODO: BACKEND - Mover a src/services/expedienteService.js cuando exista el cliente HTTP (axios/fetch wrapper)

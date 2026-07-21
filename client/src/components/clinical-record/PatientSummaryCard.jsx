@@ -1,4 +1,5 @@
 import React from 'react';
+import './ClinicalRecord.css'
 
 export const PatientSummaryCard = ({ paciente, imc }) => {
   const fecha = new Date(paciente.fechaNacimiento).toLocaleDateString('es-MX', {

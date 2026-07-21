@@ -7,7 +7,7 @@ const ESTATUS_LABEL = {
   cancelada: 'Cancelada',
 };
 
-export const UpcomingAppointments = ({ citas }) => {
+export const UpcomingAppointments = ({ citas, verTodasHref = '/paciente/citas' }) => {
   return (
     <section className="upcoming-appointments">
       <div className="upcoming-appointments__header">
@@ -30,6 +30,7 @@ export const UpcomingAppointments = ({ citas }) => {
               <span className={`estatus-badge estatus-badge--${cita.estatus}`}>
                 {ESTATUS_LABEL[cita.estatus] ?? cita.estatus}
               </span>
+              <Link to={verTodasHref}>Ver todas</Link>
             </li>
           ))}
         </ul>

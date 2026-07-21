@@ -1,6 +1,7 @@
 import React from 'react';
-import { ChevronRightIcon } from '../../../components/layout/Icons';
-import { buildMonthGrid, nombreMes, nombresDiasSemana } from '../utils/calendarUtils';
+import './CalendarMonth.css'
+import { ChevronRightIcon } from '@/components/layout/Icons';
+import { buildMonthGrid, nombreMes, nombresDiasSemana } from '@/utils/calendarUtils';
 
 export const CalendarMonth = ({
   currentMonth,

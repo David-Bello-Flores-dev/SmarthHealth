@@ -179,3 +179,12 @@
   cursor: pointer;
   font: inherit;
 }
+
+.sidebar-footer-item--button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}

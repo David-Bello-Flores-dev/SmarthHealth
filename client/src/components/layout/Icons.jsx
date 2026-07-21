@@ -162,3 +162,80 @@ export const ThermometerIcon = (props) => (
     <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none" />
   </svg>
 );
+
+export const UsersIcon = (props) => (
+  <svg {...base} {...props}>
+    <circle cx="9" cy="8" r="3.2" />
+    <path d="M2.5 20a6.5 6.5 0 0 1 13 0" />
+    <path d="M16 5.5a3.2 3.2 0 0 1 0 6.2M21.5 20a5.5 5.5 0 0 0-4.5-5.4" />
+  </svg>
+);
+
+export const FilePlusIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M6 2h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z" />
+    <path d="M12 11v6M9 14h6" />
+  </svg>
+);
+
+export const TrendingUpIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M3 17 9 11l4 4 8-8" />
+    <path d="M15 7h6v6" />
+  </svg>
+);
+
+export const AlertCircleIcon = (props) => (
+  <svg {...base} {...props}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7.5v5" />
+    <circle cx="12" cy="16.2" r="0.5" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+export const ClockIcon = (props) => (
+  <svg {...base} {...props}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3.5 2" />
+  </svg>
+);
+
+export const VideoIcon = (props) => (
+  <svg {...base} {...props}>
+    <rect x="2" y="6" width="14" height="12" rx="2" />
+    <path d="m16 10 6-3.5v11L16 14" />
+  </svg>
+);
+
+export const MapPinIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+    <circle cx="12" cy="9.5" r="2.3" />
+  </svg>
+);
+
+export const SearchIcon = (props) => (
+  <svg {...base} {...props}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+);
+
+export const XIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M18 6 6 18M6 6l12 12" />
+  </svg>
+);
+
+export const TrashIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" />
+  </svg>
+);
+
+export const EyeIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);

@@ -1,4 +1,5 @@
 import React from 'react';
+import './ClinicalRecord.css'
 
 const formatearRango = (min, max, unidad) => {
   if (min && max) return `Ref: ${min} - ${max} ${unidad}`;

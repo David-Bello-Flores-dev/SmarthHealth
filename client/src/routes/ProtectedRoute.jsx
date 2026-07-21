@@ -12,8 +12,8 @@ export const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
+  // Si no se especifica allowedRoles, cualquier usuario autenticado pasa
   if (allowedRoles && !allowedRoles.includes(user.rol)) {
-    // Usuario logueado pero sin permiso para esta sección (ej. paciente intentando ver rutas de médico)
     return <Navigate to="/" replace />;
   }
 

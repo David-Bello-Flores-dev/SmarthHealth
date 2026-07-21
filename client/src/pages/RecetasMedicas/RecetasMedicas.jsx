@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { RecetaTabs } from './components/RecetaTabs';
-import { RecetaCard } from './components/RecetaCard';
+import { RecetaTabs } from '@/components/prescriptions/RecetaTabs';
+import { RecetaCard } from '@/components/prescriptions/RecetaCard';
 import './RecetasMedicas.css';
 
 // TODO: BACKEND - Endpoint esperado: GET /api/pacientes/:pacienteId/recetas

@@ -1,0 +1,55 @@
+/* --- Buscador de pacientes --- */
+.patient-search-bar {
+  position: relative;
+  margin-bottom: 20px;
+  max-width: 360px;
+}
+
+.patient-search-bar__input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #9ca3af;
+}
+.patient-search-bar__input-wrapper input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 13.5px;
+  color: #1f2937;
+}
+
+.patient-search-bar__dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  z-index: 10;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.patient-search-bar__dropdown li button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  cursor: pointer;
+  color: #1f2937;
+}
+.patient-search-bar__dropdown li button:hover {
+  background: #f3f4f6;
+}

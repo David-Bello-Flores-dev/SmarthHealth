@@ -18,11 +18,14 @@ async function loginRequest(email, password) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (email === 'maria@smarthealth.com' && password === '123456') {
-        resolve({
-          token: 'fake-jwt-token',
-          user: { id: '123', nombre: 'María García', rol: 'paciente', pacienteId: '123' },
-        });
-      } else {
+        resolve({ token: 'fake-jwt-token', user: { id: '123', nombre: 'María García', rol: 'paciente', pacienteId: '123' } });
+      } else if (email === 'mora@smarthealth.com' && password === '123456') {
+        resolve({ token: 'fake-jwt-token', user: { id: '456', nombre: 'Dr. Andrés Mora', rol: 'medico', doctorId: '456' } });
+      } else if (email === 'recepcion@smarthealth.com' && password === '123456') {
+        resolve({ token: 'fake-jwt-token', user: { id: '789', nombre: 'Lupita Hernandez', rol: 'secretaria' } });
+      } 
+      
+        else {
         reject(new Error('Correo o contraseña incorrectos'));
       }
     }, 600);

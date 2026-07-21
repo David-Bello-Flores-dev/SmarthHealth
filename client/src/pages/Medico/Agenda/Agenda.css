@@ -1,4 +1,4 @@
-.mis-citas-page {
+.agenda-page {
   padding: 32px 40px;
   background: #f5f7fa;
   min-height: 100vh;
@@ -6,47 +6,41 @@
   color: #1f2937;
 }
 
-.mis-citas-page__header {
+.agenda-page__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 24px;
 }
-.mis-citas-page__header h1 { margin: 0; font-size: 24px; font-weight: 700; }
-.mis-citas-page__header p { margin: 4px 0 0; color: #6b7280; font-size: 14px; }
+.agenda-page__header h1 { margin: 0; font-size: 24px; font-weight: 700; }
+.agenda-page__header p { margin: 4px 0 0; color: #6b7280; font-size: 14px; }
 
-
-.mis-citas-page__state { padding: 60px; text-align: center; color: #6b7280; }
-.mis-citas-page__state--error { color: #b91c1c; }
-
-.mis-citas-page__grid {
+.agenda-page__grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
   align-items: start;
 }
 
-
-
-/* --- Panel de citas --- */
-.appointments-panel {
+/* --- Panel de pacientes del día --- */
+.daily-patients-panel {
   background: #fff;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 
-.appointments-panel__header h3 { margin: 0; font-size: 16px; }
-.appointments-panel__header p { margin: 2px 0 16px; font-size: 12.5px; color: #9ca3af; }
+.daily-patients-panel__header h3 { margin: 0; font-size: 16px; }
+.daily-patients-panel__header p { margin: 2px 0 16px; font-size: 12.5px; color: #9ca3af; }
 
-.appointments-panel__empty {
+.daily-patients-panel__empty {
   font-size: 13px;
   color: #9ca3af;
   padding: 24px 0;
   text-align: center;
 }
 
-.appointments-panel__list {
+.daily-patients-panel__list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -55,7 +49,7 @@
   gap: 10px;
 }
 
-.appointment-card {
+.patient-appointment-card {
   display: flex;
   gap: 12px;
   padding: 12px;
@@ -64,38 +58,39 @@
   border: 1px solid #eef2ef;
 }
 
-.appointment-card__time {
+.patient-appointment-card__time {
   font-size: 13px;
   font-weight: 700;
   color: #16213E;
   min-width: 44px;
 }
 
-.appointment-card__body { flex: 1; }
+.patient-appointment-card__body { flex: 1; }
 
-.appointment-card__row {
+.patient-appointment-card__row {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.appointment-card__row strong { font-size: 13.5px; }
+.patient-appointment-card__row strong { font-size: 13.5px; }
 
-.appointment-card__tipo {
+.patient-appointment-card__tipo {
   margin: 2px 0 0;
   font-size: 12.5px;
   color: #4b5563;
 }
-.appointment-card__modalidad {
-  margin: 2px 0 0;
+.patient-appointment-card__modalidad {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 4px 0 0;
   font-size: 12px;
   color: #9ca3af;
 }
 
-
-
 /* --- Responsive --- */
 @media (max-width: 900px) {
-  .mis-citas-page__grid {
+  .agenda-page__grid {
     grid-template-columns: 1fr;
   }
 }

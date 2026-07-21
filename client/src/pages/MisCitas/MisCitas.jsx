@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { CalendarMonth } from './components/CalendarMonth';
+import { CalendarMonth } from '@/components/calendar/CalendarMonth';
 import { AppointmentsPanel } from './components/AppointmentsPanel';
-import { toDateKey } from './utils/calendarUtils';
+import { toDateKey } from '@/utils/calendarUtils';
 import './MisCitas.css';
 
 // TODO: BACKEND - Endpoint esperado: GET /api/pacientes/:pacienteId/citas?mes=2026-06

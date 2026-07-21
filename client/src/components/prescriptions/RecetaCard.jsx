@@ -1,5 +1,6 @@
 import React from 'react';
 import { MedicationsList } from './MedicationsList';
+import './Prescriptions.css';
 
 export const RecetaCard = ({ receta }) => {
   const fechaEmision = new Date(receta.fechaEmision).toLocaleDateString('es-MX', {
