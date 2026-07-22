@@ -23,10 +23,10 @@ jobs:
       - name: Download Code
         uses: actions/checkout@v4 ##Chequeo
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '25.2.1'
+      #- name: Configurar Node.js
+       # uses: actions/setup-node@v4
+        #with:
+         # node-version: '25.2.1'
 
       - name: Validar Servidor
         run: |
