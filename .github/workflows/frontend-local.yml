@@ -11,7 +11,7 @@ on:
 
 jobs:
   check-frontend:
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted ]
 
     steps:
       - name: Descargar código fuente
