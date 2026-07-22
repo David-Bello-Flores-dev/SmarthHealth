@@ -17,10 +17,10 @@ jobs:
       - name: Descargar código fuente
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.x' # Usamos la estable que no da lata
+      #- name: Configurar Node.js
+       # uses: actions/setup-node@v4
+        #with:
+         # node-version: '22.x' # Usamos la estable que no da lata
 
       - name: Instalar dependencias
         run: |
