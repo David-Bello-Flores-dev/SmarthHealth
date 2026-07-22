@@ -1,0 +1,190 @@
+.dashboard-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: #16213E;
+  color: #E5E9F2;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  min-height: 100vh;
+}
+
+/* --- Marca --- */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 20px;
+}
+
+.sidebar-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #2B3B63;
+  color: #7FB8FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-brand-name {
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+}
+
+/* --- Usuario --- */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 8px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sidebar-user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #3E5C94;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-user-name {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sidebar-user-role {
+  margin: 1px 0 0;
+  font-size: 12px;
+  color: #8C9BC2;
+}
+
+/* --- Menú --- */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #A9B4D0;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-menu-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.sidebar-menu-item-active {
+  background: #24365E;
+  color: #fff;
+  border-left: 3px solid #5B8DEF;
+}
+
+.sidebar-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-menu-label {
+  flex: 1;
+}
+
+.sidebar-menu-chevron {
+  display: flex;
+  align-items: center;
+  color: #5B8DEF;
+}
+
+/* --- Footer --- */
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #8C9BC2;
+  text-decoration: none;
+  font-size: 13.5px;
+}
+
+.sidebar-footer-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+/* --- Responsive: colapsa a iconos en pantallas chicas --- */
+@media (max-width: 900px) {
+  .dashboard-sidebar {
+    width: 76px;
+    padding: 16px 10px;
+  }
+  .sidebar-brand-name,
+  .sidebar-user-name,
+  .sidebar-user-role,
+  .sidebar-menu-label,
+  .sidebar-footer-item span,
+  .sidebar-menu-chevron {
+    display: none;
+  }
+  .sidebar-user {
+    justify-content: center;
+  }
+  .sidebar-menu-item,
+  .sidebar-footer-item {
+    justify-content: center;
+    padding: 12px;
+  }
+}
+.sidebar-footer-item--button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.sidebar-footer-item--button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
