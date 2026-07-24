@@ -26,7 +26,7 @@ jobs:
 
     - name: Construcción y push de la imagen Docker
       run: |
-        docker build -t ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        docker build -f client/Dockerfile -t ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
         docker push ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
     - name: Desplegar en Azure WebApp
