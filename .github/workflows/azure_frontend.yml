@@ -17,18 +17,15 @@ jobs:
     - name: Descargar el codigo del repositorio
       uses: actions/checkout@v4
 
-    - name: Log into ACR
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
-        username: ${{ secrets.ACR_USERNAME_FRONT }}
-        password: ${{ secrets.ACR_PASSWORD_FRONT }}
-
-    - name: Construcción y push de la imagen Docker
+    - name: Log in to ACR
       run: |
-        docker build -f client/Dockerfile -t ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
-        docker push ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        echo "${{ secrets.ACR_PASSWORD_FRONT }}" | docker login smconta.azurecr.io -u "${{ secrets.ACR_USERNAME_FRONT }}" --password-stdin
 
+    - name: Build and Push Docker Image
+      run: |
+          docker build -t smconta.azurecr.io/frontend-app:${{ github.sha }} -f client/Dockerfile .
+          docker push smconta.azurecr.io/frontend-app:${{ github.sha }}
+          
     - name: Desplegar en Azure WebApp
       uses: azure/webapps-deploy@v3
       with:
