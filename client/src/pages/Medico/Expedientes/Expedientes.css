@@ -1,0 +1,11 @@
+.expedientes-medico-page {
+  padding: 32px 40px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1f2937;
+}
+
+.expedientes-medico-page__header h1 { margin: 0; font-size: 24px; font-weight: 700; }
+.expedientes-medico-page__header p { margin: 4px 0 20px; color: #6b7280; font-size: 14px; }
+

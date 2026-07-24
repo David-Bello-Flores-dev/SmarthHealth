@@ -1,111 +1,711 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@theme {
+  --color-brand-primary: #1e5bb0; 
+  --color-brand-hover: #164385;
+  --color-brand-dark: #0a192f;    
+  --color-bg-light: #f4f6fa;      
+  
+  --color-status-success: #10b981;
+  --color-status-warning: #f59e0b;
+  --color-status-danger: #ef4444;
+  --color-status-info: #06b6d4;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+/* --- ESTILOS NATIVOS APLICADOS A CLASES DE TEXTO Y COLORES --- */
+.text-brand-primary { color: #1e5bb0 !important; }
+.text-brand-dark { color: #0a192f !important; }
+.bg-bg-light { background-color: #f4f6fa !important; }
+.footer-dark { background-color: #0a192f !important; color: #ffffff !important; }
+
+/* --- BOTONES --- */
+@utility btn-base {
+  @apply font-semibold px-6 py-2 rounded-xl transition-all duration-200 cursor-pointer text-sm tracking-wide inline-flex items-center justify-center shadow-xs;
+}
+
+@utility btn-primary {
+  background-color: #ffffff !important;
+  color: #ffffff !important;
+  border: 1px solid;
+  
+  &:hover {
+    background-color: #164385 !important;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+@utility btn-secondary {
+  background-color: #ffffff !important;
+  color: #1e5bb0 !important;
+  border: 1px solid #e2e8f0 !important;
+  
+  &:hover {
+    background-color: #f8fafc !important;
   }
 }
 
-body {
-  margin: 0;
+/* --- INPUTS --- */
+@utility sh-input-wrapper {
+  @apply flex flex-col gap-1.5 w-full;
+}
+@utility sh-input-label {
+  @apply text-sm font-medium text-slate-700;
+}
+@utility sh-input {
+  @apply w-full px-3 py-2 border rounded-lg shadow-xs text-sm bg-white text-slate-950 focus:outline-hidden focus:ring-2 focus:ring-[--color-brand-primary]/20 focus:border-[--color-brand-primary] transition-all border-slate-200;
+}
+@utility sh-input-error {
+  @apply border-[--color-status-danger] focus:ring-red-200 focus:border-[--color-status-danger];
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+/* --- ELEMENTOS DE DISEÑO (CARDS Y BADGES) --- */
+@utility sh-card {
+  @apply bg-white border border-slate-100 rounded-xl p-6 shadow-xs;
+}
+
+@utility badge-base {
+  @apply px-2.5 py-1 text-xs font-semibold rounded-full border inline-block w-fit;
+}
+@utility badge-success {
+  @apply bg-emerald-50 text-[--color-status-success] border-emerald-200;
+}
+@utility badge-warning {
+  @apply bg-amber-50 text-[--color-status-warning] border-amber-200;
+}
+@utility badge-danger {
+  @apply bg-red-50 text-[--color-status-danger] border-red-200;
+}
+
+/* --- ESTRUCTURAS DE TABLAS --- */
+@utility sh-table-container {
+  @apply w-full overflow-x-auto rounded-xl border border-slate-100 bg-white shadow-xs;
+}
+@utility sh-table {
+  @apply w-full text-left text-sm text-slate-600 border-collapse;
+}
+@utility sh-thead {
+  @apply bg-slate-50 text-xs font-semibold text-slate-700 uppercase border-b border-slate-100;
+}
+@utility sh-th {
+  @apply px-6 py-4;
+}
+@utility sh-td {
+  @apply px-6 py-4 border-b border-slate-100 align-middle;
+}
+
+/* --- ELEMENTOS PÚBLICOS DE LA LANDING --- */
+@utility public-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+@utility section-padding {
+  @apply py-16 md:py-24;
+}
+@utility nav-link {
+  @apply text-slate-600 hover:text-[--color-brand-primary] text-sm font-medium transition-colors duration-200;
+}
+@utility grid-services {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+@utility grid-team {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+}
+@utility footer-title {
+  @apply text-slate-400 text-xs font-semibold uppercase tracking-wider mb-4;
+}
+
+/* --- RECUADRO AZÚL REY DEL CTA --- */
+@utility cta-box {
+  @apply max-w-4xl mx-auto flex flex-col gap-6 text-white p-10 md:p-14 rounded-3xl shadow-sm text-center items-center justify-center;
+  background-color: #1e5bb0 !important; 
+}
+
+.btn-cta-white {
+  background-color: #ffffff !important;
+  color: #1e5bb0 !important; /* El azul institucional mate de tu mockup */
+  font-semibold: true;
+  border: 1px solid transparent !important;
+  border-radius: 0.75rem !important; /* Mismo redondeado de tus tarjetas (rounded-xl) */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s ease-in-out !important;
+  cursor: pointer !important;
+
+  &:hover {
+    background-color: #f8fafc !important;
+    color: #164385 !important;
+  }
+}
+
+.btn-login-blue {
+  background-color: #1e5bb0 !important; /* El azul mate exacto del diseño */
+  color: #ffffff !important;            /* Letras blancas */
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;     /* Forma de píldora/cápsula idéntica al mockup */
+  font-weight: 600 !important;
+  transition: all 0.2s ease-in-out !important;
+  cursor: pointer !important;
+
+  &:hover {
+    background-color: #164385 !important;
+  }
+}
+
+/* --- ÍCONOS DE COLORES DE LA SECCIÓN DE SERVICIOS --- */
+@utility icon-box-purple { background-color: #eef2ff !important; color: #4f46e5 !important; @apply w-10 h-10 rounded-xl flex items-center justify-center; }
+@utility icon-box-green { background-color: #ecfdf5 !important; color: #059669 !important; @apply w-10 h-10 rounded-xl flex items-center justify-center; }
+@utility icon-box-indigo { background-color: #f5f3ff !important; color: #7c3aed !important; @apply w-10 h-10 rounded-xl flex items-center justify-center; }
+@utility icon-box-cyan { background-color: #ecfeff !important; color: #0891b2 !important; @apply w-10 h-10 rounded-xl flex items-center justify-center; }
+@utility icon-box-pink { background-color: #fdf2f8 !important; color: #db2777 !important; @apply w-10 h-10 rounded-xl flex items-center justify-center; }
+@utility icon-box-amber { background-color: #fffbeb !important; color: #d97706 !important; @apply w-10 h-10 rounded-xl flex items-center justify-center; }
+
+/* Nuevos de prueba */
+@utility public-container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+@utility nav-link { @apply text-slate-600 hover:text-[#1e5bb0] text-sm font-medium transition-colors; }
+@utility footer-title { @apply text-slate-400 text-xs font-bold uppercase tracking-wider mb-3; }
+@utility footer-link { @apply text-slate-300 hover:text-white text-sm transition-colors block; }
+
+/* --- LOGIN (LoginPage / LoginHero / LoginForm) --- */
+@utility login-page {
+  @apply min-h-screen grid grid-cols-1 md:grid-cols-2;
+}
+
+@utility login-hero {
+  @apply hidden md:flex flex-col justify-between bg-gradient-to-br from-blue-800 to-blue-600 text-white p-12;
+}
+
+@utility login-hero-brand {
+  @apply flex items-center gap-2;
+}
+
+@utility login-hero-logo {
+  @apply flex items-center justify-center w-9 h-9 rounded-full bg-white/15;
+}
+
+@utility login-hero-brand-name {
+  @apply text-lg font-semibold;
+}
+
+@utility login-hero-copy {
+  @apply max-w-md;
+}
+
+@utility login-hero-title {
+  @apply text-4xl font-bold leading-tight mb-4;
+}
+
+@utility login-hero-subtitle {
+  @apply text-blue-100 text-base;
+}
+
+@utility login-stats-grid {
+  @apply grid grid-cols-2 gap-4 max-w-md;
+}
+
+@utility login-stat-card {
+  @apply bg-white/10 rounded-xl p-4;
+}
+
+@utility login-stat-value {
+  @apply text-2xl font-bold;
+}
+
+@utility login-stat-label {
+  @apply text-sm text-blue-100;
+}
+
+@utility login-form-panel {
+  @apply flex items-center justify-center bg-slate-50 p-8;
+}
+
+@utility login-form-wrapper {
+  @apply w-full max-w-sm;
+}
+
+@utility login-form-title {
+  @apply text-2xl font-bold text-slate-900 mb-1;
+}
+
+@utility login-form-subtitle {
+  @apply text-slate-500 text-sm mb-8;
+}
+
+@utility login-form-fields {
+  @apply space-y-5;
+}
+
+@utility login-password-field {
+  @apply relative;
+}
+
+@utility login-password-toggle {
+  @apply absolute right-3 top-[38px] text-slate-400 hover:text-slate-600;
+}
+
+@utility login-footer {
+  @apply text-center mt-6 space-y-2;
+}
+
+@utility login-footer-text {
+  @apply text-sm text-slate-600;
+}
+
+@utility login-footer-link {
+  @apply text-[--color-brand-primary] font-medium hover:underline;
+}
+
+@utility login-back-link {
+  @apply text-sm text-slate-500 hover:underline inline-block;
+}
+
+/* --- DASHBOARD PACIENTE (Resumen) --- */
+@utility dashboard-layout {
+  @apply min-h-screen grid grid-cols-[260px_1fr] bg-bg-light;
+}
+
+.dashboard-sidebar {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  padding: 1.5rem 1rem;
+  gap: 1.5rem;
+  background-color: #0a192f !important;
+  color: #ffffff !important;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+@utility sidebar-brand {
+  @apply flex items-center gap-2 px-2;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+@utility sidebar-logo {
+  @apply flex items-center justify-center w-8 h-8 rounded-full bg-white/10;
+}
+
+@utility sidebar-brand-name {
+  @apply font-semibold text-base;
+}
+
+@utility sidebar-user {
+  @apply flex items-center gap-3 px-2 py-3 border-t border-b border-white/10;
+}
+
+.sidebar-user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: #1e5bb0 !important;
+  color: #ffffff !important;
+}
+
+@utility sidebar-user-name {
+  @apply text-sm font-semibold leading-tight;
+  color: #ffffff !important;
+}
+
+@utility sidebar-user-role {
+  @apply text-xs;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+@utility sidebar-menu {
+  @apply flex flex-col gap-1 flex-1;
+}
+
+@utility sidebar-menu-item {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors;
+  color: rgba(255, 255, 255, 0.65) !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #ffffff !important;
   }
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+
+@utility sidebar-menu-item-active {
+  background-color: #1e5bb0 !important;
+  color: #ffffff !important;
+}
+
+@utility sidebar-menu-icon {
+  @apply flex items-center justify-center;
+}
+
+@utility sidebar-menu-label {
+  @apply flex-1 font-medium;
+}
+
+@utility sidebar-menu-chevron {
+  @apply flex items-center justify-center opacity-80;
+}
+
+@utility sidebar-footer {
+  @apply flex flex-col gap-1 pt-4 border-t border-white/10;
+}
+
+@utility sidebar-footer-item {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors;
+  color: rgba(255, 255, 255, 0.65) !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #ffffff !important;
   }
 }
-p {
-  margin: 0;
+
+/* --- TOPBAR --- */
+@utility dashboard-main {
+  @apply flex flex-col min-h-screen;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+@utility dashboard-topbar {
+  @apply flex items-center justify-between bg-white border-b border-slate-100 px-8 py-4;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+@utility topbar-title {
+  @apply text-base font-semibold text-slate-900;
+}
+
+@utility topbar-subtitle {
+  @apply text-xs text-slate-400;
+}
+
+@utility topbar-actions {
+  @apply flex items-center gap-4;
+}
+
+@utility topbar-icon-btn {
+  @apply relative flex items-center justify-center w-9 h-9 rounded-full text-slate-500 hover:bg-slate-100 transition-colors cursor-pointer;
+}
+
+@utility topbar-notification-dot {
+  @apply absolute top-1.5 right-2 w-2 h-2 rounded-full bg-emerald-500 border border-white;
+}
+
+.topbar-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: #1e5bb0 !important;
+  color: #ffffff !important;
+}
+
+/* --- CONTENIDO --- */
+@utility dashboard-content {
+  @apply flex flex-col gap-6 p-8;
+}
+
+@utility dashboard-welcome {
+  @apply flex items-center justify-between flex-wrap gap-4;
+}
+
+@utility welcome-title {
+  @apply text-2xl font-bold text-slate-900;
+}
+
+@utility welcome-date {
+  @apply text-sm text-slate-500;
+}
+
+/* --- VITALES --- */
+@utility vitals-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5;
+}
+
+@utility vital-card {
+  @apply flex flex-col gap-3;
+}
+
+.vital-icon-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vital-icon-red { background-color: #fef2f2 !important; color: #dc2626 !important; }
+.vital-icon-blue { background-color: #eff6ff !important; color: #2563eb !important; }
+.vital-icon-orange { background-color: #fff7ed !important; color: #ea580c !important; }
+.vital-icon-green { background-color: #ecfdf5 !important; color: #059669 !important; }
+
+@utility vital-label {
+  @apply text-sm text-slate-500;
+}
+
+@utility vital-value-row {
+  @apply flex items-baseline gap-1.5;
+}
+
+@utility vital-value {
+  @apply text-2xl font-bold text-slate-900;
+}
+
+@utility vital-unit {
+  @apply text-sm text-slate-400;
+}
+
+@utility vital-status-normal {
+  @apply text-sm font-medium text-[--color-status-success];
+}
+
+@utility vital-status-delta {
+  @apply text-sm text-slate-400;
+}
+
+/* --- GRID INFERIOR (chart + citas) --- */
+@utility dashboard-content-grid {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-6 items-start;
+}
+
+/* --- GRÁFICA DE PRESIÓN ARTERIAL --- */
+@utility chart-panel {
+  @apply lg:col-span-2 flex flex-col gap-6;
+}
+
+@utility chart-header {
+  @apply flex items-start justify-between flex-wrap gap-3;
+}
+
+@utility chart-title {
+  @apply text-base font-semibold text-slate-900;
+}
+
+@utility chart-subtitle {
+  @apply text-sm text-slate-400;
+}
+
+@utility chart-legend {
+  @apply flex items-center gap-4 text-sm text-slate-500;
+}
+
+@utility chart-legend-item {
+  @apply flex items-center gap-1.5;
+}
+
+@utility chart-legend-dot {
+  @apply w-2 h-2 rounded-full inline-block;
+}
+
+.chart-legend-dot-systolic { background-color: #1e3a8a !important; }
+.chart-legend-dot-diastolic { background-color: #10b981 !important; }
+
+@utility chart-svg-wrapper {
+  @apply w-full relative;
+}
+
+@utility chart-empty {
+  @apply absolute inset-0 flex items-center justify-center text-sm text-slate-400 pointer-events-none;
+}
+
+.chart-gridline {
+  stroke: #e2e8f0;
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.chart-axis-label {
+  fill: #94a3b8;
+  font-size: 11px;
+}
+
+.chart-line-systolic {
+  stroke: #1e3a8a;
+  stroke-width: 2.5;
+}
+
+.chart-line-diastolic {
+  stroke: #10b981;
+  stroke-width: 2.5;
+}
+
+/* --- PRÓXIMAS CITAS --- */
+@utility appointments-panel {
+  @apply flex flex-col gap-5;
+}
+
+@utility appointments-header {
+  @apply flex items-center justify-between;
+}
+
+@utility appointments-title {
+  @apply text-base font-semibold text-slate-900;
+}
+
+@utility appointments-viewall-link {
+  @apply text-sm font-medium text-[--color-brand-primary] hover:underline cursor-pointer;
+}
+
+@utility appointments-list {
+  @apply flex flex-col gap-4;
+}
+
+@utility appointments-empty {
+  @apply text-sm text-slate-400 py-6 text-center;
+}
+
+@utility appointment-item {
+  @apply flex items-start gap-3;
+}
+
+@utility appointment-icon {
+  @apply flex items-center justify-center w-9 h-9 rounded-full bg-slate-100 text-slate-500 shrink-0;
+}
+
+@utility appointment-info {
+  @apply flex-1;
+}
+
+@utility appointment-doctor {
+  @apply text-sm font-semibold text-slate-900;
+}
+
+@utility appointment-specialty {
+  @apply text-sm text-slate-500;
+}
+
+@utility appointment-time {
+  @apply text-xs text-slate-400 mt-0.5;
+}
+
+/* --- MIS CITAS (AppointmentsPage) --- */
+@utility appointments-page-header {
+  @apply flex items-center justify-between flex-wrap gap-4;
+}
+
+@utility appointments-page-title {
+  @apply text-2xl font-bold text-slate-900;
+}
+
+@utility appointments-page-subtitle {
+  @apply text-sm text-slate-500;
+}
+
+@utility appointments-page-grid {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-6 items-start;
+}
+
+/* --- CALENDARIO --- */
+.calendar-panel {
+  grid-column: span 1 / span 1;
+}
+@media (min-width: 1024px) {
+  .calendar-panel {
+    grid-column: span 2 / span 2;
+  }
+}
+
+@utility calendar-nav {
+  @apply flex items-center justify-between mb-6;
+}
+
+@utility calendar-nav-btn {
+  @apply flex items-center justify-center w-8 h-8 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors cursor-pointer;
+}
+
+@utility calendar-month-label {
+  @apply text-base font-semibold text-slate-900;
+}
+
+@utility calendar-weekdays {
+  @apply grid grid-cols-7 mb-2;
+}
+
+@utility calendar-weekday {
+  @apply text-xs font-medium text-slate-400 text-center pb-2;
+}
+
+@utility calendar-grid {
+  @apply grid grid-cols-7 gap-1;
+}
+
+@utility calendar-day-empty {
+  @apply aspect-square;
+}
+
+@utility calendar-day-cell {
+  @apply aspect-square flex flex-col items-center justify-center gap-1 rounded-xl text-sm text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer;
+}
+
+.calendar-day-selected {
+  background-color: #1e5bb0 !important;
+  color: #ffffff !important;
+}
+
+@utility calendar-day-number {
+  @apply font-medium;
+}
+
+@utility calendar-day-dots {
+  @apply flex items-center gap-0.5;
+}
+
+@utility calendar-day-dot {
+  @apply w-1.5 h-1.5 rounded-full inline-block;
+}
+
+.calendar-dot-success { background-color: #10b981 !important; }
+.calendar-dot-warning { background-color: #f59e0b !important; }
+.calendar-dot-danger { background-color: #ef4444 !important; }
+.calendar-dot-default { background-color: #94a3b8 !important; }
+
+/* --- LISTA DE CITAS DEL DÍA --- */
+@utility day-list-panel {
+  @apply flex flex-col gap-5;
+}
+
+@utility day-list-header {
+  @apply flex flex-col gap-0.5;
+}
+
+@utility day-list-title {
+  @apply text-base font-semibold text-slate-900;
+}
+
+@utility day-list-subtitle {
+  @apply text-sm text-slate-400;
+}
+
+@utility day-list-empty {
+  @apply text-sm text-slate-400 py-6 text-center;
+}
+
+@utility day-list-items {
+  @apply flex flex-col gap-3;
+}
+
+@utility day-appointment-item {
+  @apply flex flex-col gap-2 rounded-xl p-4 border border-slate-100 bg-slate-50;
+}
+
+.day-appointment-item-success { background-color: #ecfdf5 !important; border-color: #d1fae5 !important; }
+.day-appointment-item-warning { background-color: #fffbeb !important; border-color: #fde68a !important; }
+.day-appointment-item-danger { background-color: #fef2f2 !important; border-color: #fecaca !important; }
+
+@utility day-appointment-top {
+  @apply flex items-center justify-between;
+}
+
+@utility day-appointment-time-row {
+  @apply flex items-center gap-1.5 text-sm font-medium text-slate-600;
+}
+
+@utility day-appointment-person {
+  @apply flex items-center gap-1.5 text-sm font-semibold text-slate-900;
+}
+
+@utility day-appointment-reason {
+  @apply text-sm text-slate-500;
+}
+
+@utility day-appointment-meta {
+  @apply flex items-center gap-1.5 text-xs text-slate-400;
 }

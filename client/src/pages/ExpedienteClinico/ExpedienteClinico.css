@@ -1,0 +1,42 @@
+.expediente-page {
+  padding: 32px 40px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1f2937;
+}
+
+.expediente-page__header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.expediente-page__header p {
+  color: #6b7280;
+  margin: 4px 0 24px;
+  font-size: 14px;
+}
+
+.expediente-page__state {
+  padding: 60px;
+  text-align: center;
+  color: #6b7280;
+}
+.expediente-page__state--error {
+  color: #b91c1c;
+}
+
+
+
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .expediente-page { padding: 20px; }
+  .patient-card { flex-direction: column; }
+  .lab-results__row {
+    grid-template-columns: 12px 1fr auto;
+    row-gap: 4px;
+  }
+  .lab-results__ref { grid-column: 2 / 4; }
+}

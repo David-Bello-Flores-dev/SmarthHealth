@@ -1,0 +1,130 @@
+.resumen-medico-page {
+  padding: 32px 40px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1f2937;
+}
+
+/* --- Greeting --- */
+.doctor-greeting {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+.doctor-greeting h1 { margin: 0; font-size: 22px; font-weight: 700; }
+.doctor-greeting__date { margin: 4px 0 0; color: #9ca3af; font-size: 13px; text-transform: capitalize; }
+
+.btn-nueva-receta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-nueva-receta:hover { background: #128038; }
+
+/* --- Stat cards --- */
+.doctor-stats-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.stat-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.stat-card__icon--patients { background: #E0E7FF; color: #4338CA; }
+.stat-card__icon--week { background: #DCFCE7; color: #15803D; }
+.stat-card__icon--prescriptions { background: #E5E7EB; color: #374151; }
+.stat-card__icon--satisfaction { background: #FFEDD5; color: #C2410C; }
+
+.stat-card__value { margin: 0; font-size: 26px; font-weight: 700; }
+.stat-card__label { margin: 2px 0 0; font-size: 13px; color: #4b5563; }
+.stat-card__sublabel { margin: 2px 0 0; font-size: 12px; color: #9ca3af; }
+.stat-card__sublabel--success { color: #16a34a; font-weight: 600; }
+.stat-card__sublabel--muted { color: #9ca3af; }
+
+/* --- Grid: chart + alerts --- */
+.resumen-medico-page__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* --- Weekly chart --- */
+.weekly-chart {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.weekly-chart__header h3 { margin: 0; font-size: 15px; }
+.weekly-chart__header p { margin: 2px 0 12px; font-size: 12px; color: #9ca3af; }
+
+/* --- Clinical alerts --- */
+.clinical-alerts {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.clinical-alerts h3 { margin: 0 0 14px; font-size: 15px; }
+.clinical-alerts__empty { font-size: 13px; color: #9ca3af; }
+
+.clinical-alerts__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clinical-alert {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  align-items: flex-start;
+}
+.clinical-alert strong { display: block; font-size: 13px; }
+.clinical-alert p { margin: 2px 0 0; font-size: 12px; }
+
+.clinical-alert--warning { background: #FEFCE8; color: #A16207; }
+.clinical-alert--warning strong { color: #713F12; }
+.clinical-alert--critical { background: #FEF2F2; color: #B91C1C; }
+.clinical-alert--critical strong { color: #7F1D1D; }
+.clinical-alert--info { background: #EFF6FF; color: #1D4ED8; }
+.clinical-alert--info strong { color: #1E3A8A; }
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .doctor-stats-cards { grid-template-columns: repeat(2, 1fr); }
+  .resumen-medico-page__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .doctor-stats-cards { grid-template-columns: 1fr; }
+}
