@@ -1,18 +1,14 @@
-# ---------- Build ----------
-
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 
 WORKDIR /app
 
-COPY client/package*.json ./
+COPY package*.json ./
 
 RUN npm ci
 
-COPY client/ ./
+COPY . .
 
 RUN npm run build
-
-# ---------- Producción ----------
 
 FROM nginx:stable-alpine
 
