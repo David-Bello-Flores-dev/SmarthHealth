@@ -25,7 +25,6 @@ jobs:
 
     - name: npm install, build, and test
       run: |
-        - docker/login-action
         - docker/build-push-action
         - azure/login
         - Azure WebApp Container Deploy
