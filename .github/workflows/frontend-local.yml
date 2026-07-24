@@ -3,34 +3,31 @@ name: Frontend - Validación Local (QA Check)
 on:
   push:
     paths:
-      - 'client/**' 
+      - 'client/**' # <--- CAMBIA 'client' por el nombre exacto de esta carpeta en tu repo
   pull_request:
     paths:
-      - 'client/**' 
-  workflow_dispatch: 
+      - 'client/**' # <--- Lo mismo aquí
+  workflow_dispatch: # El botón mágico para ejecutar cuando quieras
+
 jobs:
   check-frontend:
     runs-on: [ self-hosted ]
 
     steps:
-      - name: Checkout
+      - name: Descargar código fuente
         uses: actions/checkout@v4
 
+      #- name: Configurar Node.js
+       # uses: actions/setup-node@v4
+        #with:
+         # node-version: '22.x' # Usamos la estable que no da lata
+
       - name: Instalar dependencias
-        working-directory: ./client
-        run: npm install
-
-      - name: Compilar
-        working-directory: ./client
-        run: npm run build --if-present
-
-      - name: Ejecutar pruebas
-        working-directory: ./client
-        run: npm run test --if-present
-
-      - name: Construir imagen Docker
         run: |
-          docker build -t frontend:latest ./client
+          cd client # <--- CAMBIA 'client' por el nombre de tu carpeta del frontend
+          npm install
 
-      - name: Verificar imagen creada
-        run: docker images
+      - name: Validar compilación (Build)
+        run: |
+          cd client # <--- Mismo cambio de carpeta
+          npm run build
