@@ -6,12 +6,9 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: 'frontendApp' # Nombre exacto de tu App Service en Azure
-  NODE_VERSION: '25.2.1'
-  AZURE_WEBAPP_PACKAGE_PATH: '.' # El artefacto se descargará en la raíz del job de deploy
-
-permissions:
-  contents: read
+  AZURE_WEBAPP_NAME: 'frontendApp'
+  REGISTRY_LOGIN_SERVER: 'smconta.azurecr.io' 
+  IMAGE_NAME: 'frontend-app' 
 
 jobs:
   build:
@@ -20,40 +17,23 @@ jobs:
     - name: Descargar el codigo del repositorio
       uses: actions/checkout@v4
 
-    - name: Configurar Node.js
-      uses: actions/setup-node@v4
+    - name: Log into ACR
+      uses: azure/docker-login@v1
       with:
-        node-version: ${{ env.NODE_VERSION }}
+        login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME_FRONT }}
+        password: ${{ secrets.ACR_PASSWORD_FRONT }}
 
-    - name: Instalar dependencias y compilar Frontend (Vite)
+    - name: Construcción y push de la imagen Docker
       run: |
-        cd client
-        npm install
-        npm run build
-
-    - name: Subir únicamente el Build (dist) como Artefacto
-      uses: actions/upload-artifact@v4
-      with:
-        name: frontend-build
-        path: client/dist
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      contents: read
-
-    steps:
-    - name: Descargar artefacto compilado
-      uses: actions/download-artifact@v4
-      with:
-        name: frontend-build
-        path: . # Descarga el contenido de dist directamente en la raíz
+        docker build -t ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        docker push ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
     - name: Desplegar en Azure WebApp
-      id: deploy-to-webapp
       uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.AZURE_DEPLOYMENT_FRONT }} # Pasa el XML del Publish Profile directamente
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.AZURE_DEPLOYMENT_FRONT }}
+        images: '${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
+
+ 
