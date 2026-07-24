@@ -18,9 +18,12 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Log in to ACR
-      run: |
-        echo "${{ secrets.ACR_PASSWORD_FRONT }}" | docker login smconta.azurecr.io -u "${{ secrets.ACR_USERNAME_FRONT }}" --password-stdin
-
+      uses: azure/docker-login@v1
+      with:
+        login-server: smconta.azurecr.io
+        username: ${{ secrets.ACR_USERNAME_FRONT }}
+        password: ${{ secrets.ACR_PASSWORD_FRONT }}
+          
     - name: Build and Push Docker Image
       run: |
           docker build -t smconta.azurecr.io/frontend-app:${{ github.sha }} -f client/Dockerfile .
