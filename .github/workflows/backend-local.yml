@@ -20,18 +20,24 @@ jobs:
     runs-on: [ self-hosted ]
 
     steps:
-      - name: Download Code
-        uses: actions/checkout@v4 ##Chequeo
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      #- name: Configurar Node.js
-       # uses: actions/setup-node@v4
-        #with:
-         # node-version: '25.2.1'
+      - name: Instalar dependencias
+        working-directory: ./server
+        run: npm install
 
-      - name: Validar Servidor
+      - name: Compilar
+        working-directory: ./server
+        run: npm run build --if-present
+
+      - name: Ejecutar pruebas
+        working-directory: ./server
+        run: npm run test --if-present
+
+      - name: Construir imagen Docker
         run: |
-          # Si los comandos del backend los corres desde la raíz usando el package.json principal:
-          cd server
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          docker build -t backend:latest ./server
+
+      - name: Verificar imagen creada
+        run: docker images
