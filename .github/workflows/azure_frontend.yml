@@ -26,7 +26,7 @@ jobs:
           
     - name: Build and Push Docker Image
       run: |
-          docker build -t smconta.azurecr.io/frontend-app:${{ github.sha }} -f client/Dockerfile .
+          docker build -t smconta.azurecr.io/frontend-app:${{ github.sha }} ./client
           docker push smconta.azurecr.io/frontend-app:${{ github.sha }}
           
     - name: Desplegar en Azure WebApp
