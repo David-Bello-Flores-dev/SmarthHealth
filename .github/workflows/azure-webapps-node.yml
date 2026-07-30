@@ -7,7 +7,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: 'backendApp'
-  REGISTRY_LOGIN_SERVER: 'smconta.azurecr.io' 
+  REGISTRY_LOGIN_SERVER: 'smbconta.azurecr.io' 
   IMAGE_NAME: 'backend-app' 
 
 jobs:
@@ -20,14 +20,14 @@ jobs:
     - name: Log in to ACR
       uses: azure/docker-login@v1
       with:
-        login-server: smconta.azurecr.io
+        login-server: smbconta.azurecr.io
         username: ${{ secrets.ACR_USERNAME_BACK }}
         password: ${{ secrets.ACR_PASSWORD_BACK }}
           
     - name: Build and Push Docker Image
       run: |
-          docker build -t smconta.azurecr.io/backend-app:${{ github.sha }} ./server
-          docker push smconta.azurecr.io/backend-app:${{ github.sha }}
+          docker build -t smbconta.azurecr.io/backend-app:${{ github.sha }} ./server
+          docker push smbconta.azurecr.io/backend-app:${{ github.sha }}
           
     - name: Desplegar en Azure WebApp
       uses: azure/webapps-deploy@v3
