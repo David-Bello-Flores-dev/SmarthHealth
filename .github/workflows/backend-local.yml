@@ -1,0 +1,43 @@
+################### SCRIPT NO. NO SÉ CUÁL HECHO 100% CON GEMINI PARA PRUEBAS DE PIPELINE #####################
+
+name : Bakend - Validación en la parte local (QA)
+
+on: 
+  push: 
+    branches:
+      - 'Feat_*'
+    paths:
+      - 'server/**'
+  pull_request:
+    branches:
+      - 'QA'
+    paths:
+      - 'server/src/**'
+  workflow_dispatch: 
+
+jobs:
+  check-backend: 
+    runs-on: [ self-hosted ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar dependencias
+        working-directory: ./server
+        run: npm install
+
+      - name: Compilar
+        working-directory: ./server
+        run: npm run build --if-present
+
+      - name: Ejecutar pruebas
+        working-directory: ./server
+        run: npm run test --if-present
+
+      - name: Construir imagen Docker
+        run: |
+          docker build -t backend:latest ./server
+
+      - name: Verificar imagen creada
+        run: docker images
