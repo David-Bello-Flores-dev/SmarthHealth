@@ -17,7 +17,8 @@ const ROUTE_META = {
   '/medico/pacientes': { title: 'Pacientes', subtitle: 'SmartHealth · Médico' },
   '/secretaria/resumen': { title: 'Resumen', subtitle: 'SmartHealth · Recepción' },
   '/secretaria/citas': { title: 'Citas', subtitle: 'SmartHealth · Recepción' },
-  '/secretaria/expedientes': { title: 'Expedientes', subtitle: 'SmartHealth · Recepción' }
+  '/secretaria/expedientes': { title: 'Expedientes', subtitle: 'SmartHealth · Recepción' },
+  '/configuracion': { title: 'Configuración', subtitle: 'SmartHealth · Mi cuenta' },
 };
 
 export const AppLayout = () => {

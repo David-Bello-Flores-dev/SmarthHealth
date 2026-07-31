@@ -4,54 +4,20 @@ import { CalendarMonth } from '@/components/calendar/CalendarMonth';
 import { AppointmentsPanel } from './components/AppointmentsPanel';
 import { toDateKey } from '@/utils/calendarUtils';
 import './MisCitas.css';
+import { api } from '@/services/api';
+import { NewAppointmentModal } from '@/components/appointments/NewAppointmentModal';
 
 // TODO: BACKEND - Endpoint esperado: GET /api/pacientes/:pacienteId/citas?mes=2026-06
 // Idealmente el backend ya filtra por mes visible para no traer todo el historial de citas.
 async function fetchCitas(pacienteId, year, month) {
-  // --- MOCK: reemplazar por llamada real ---
-  // const mes = `${year}-${String(month + 1).padStart(2, '0')}`;
-  // const res = await api.get(`/pacientes/${pacienteId}/citas`, { params: { mes } });
-  // return res.data;
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 'c1',
-          fecha: '2026-06-10',
-          hora: '09:00',
-          medico: 'Carlos Méndez',
-          tipoConsulta: 'Consulta general',
-          modalidad: 'presencial',
-          estatus: 'confirmada',
-        },
-        {
-          id: 'c2',
-          fecha: '2026-06-10',
-          hora: '10:30',
-          medico: 'Ana López',
-          tipoConsulta: 'Seguimiento',
-          modalidad: 'videollamada',
-          estatus: 'confirmada',
-        },
-        {
-          id: 'c3',
-          fecha: '2026-06-10',
-          hora: '14:30',
-          medico: 'María García',
-          tipoConsulta: 'Revisión anual',
-          modalidad: 'presencial',
-          estatus: 'confirmada',
-        },
-        { id: 'c4', fecha: '2026-06-04', hora: '11:00', medico: 'Andrés Mora', tipoConsulta: 'Consulta general', modalidad: 'presencial', estatus: 'confirmada' },
-        { id: 'c5', fecha: '2026-06-13', hora: '16:00', medico: 'Lucía Fernández', tipoConsulta: 'Endocrinología', modalidad: 'videollamada', estatus: 'pendiente' },
-        { id: 'c6', fecha: '2026-06-24', hora: '08:30', medico: 'Carlos Méndez', tipoConsulta: 'Consulta general', modalidad: 'presencial', estatus: 'confirmada' },
-      ]);
-    }, 400);
-  });
+  const mes = `${year}-${String(month + 1).padStart(2, '0')}`;
+  return api.get(`/pacientes/${pacienteId}/citas?mes=${mes}`);
 }
+
 
 export const MisCitas = () => {
   const { pacienteId } = useOutletContext();
+  const [showModal, setShowModal] = useState(false);
 
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 5, 1)); // Junio 2026
   const [selectedDateKey, setSelectedDateKey] = useState(toDateKey(new Date(2026, 5, 10)));
@@ -88,9 +54,12 @@ export const MisCitas = () => {
   };
 
   const handleNuevaCita = () => {
-    // TODO: BACKEND - abrir modal/formulario y hacer POST /api/pacientes/:pacienteId/citas
-    // Por ahora solo placeholder de navegación
-    console.log('Abrir flujo de nueva cita para', pacienteId, 'en', selectedDateKey);
+    setShowModal(true);
+  };
+
+  const handleCitaCreada = (nuevaCita) => {
+    setCitas((prev) => [...prev, nuevaCita]);
+    setShowModal(false);
   };
 
   return (
@@ -103,6 +72,13 @@ export const MisCitas = () => {
         <button type="button" className="btn-nueva-cita" onClick={handleNuevaCita}>
           + Nueva cita
         </button>
+        {showModal && (
+          <NewAppointmentModal
+            fechaInicial={selectedDateKey}
+            onClose={() => setShowModal(false)}
+            onCreated={handleCitaCreada}
+          />
+        )}
       </div>
 
       {loading && <div className="mis-citas-page__state">Cargando citas...</div>}
