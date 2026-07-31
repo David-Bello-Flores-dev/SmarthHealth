@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircleIcon } from '@/components/layout/Icons';
+import { DownloadPdfButton } from '@/components/appointments/DownloadPdfButton';
 
 const ESTATUS_LABEL = { confirmada: 'Confirmada', pendiente: 'Pendiente', cancelada: 'Cancelada' };
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
@@ -26,6 +27,7 @@ export const ClinicAppointmentsPanel = ({ selectedDateKey, citas, onConfirmar })
                 <p>{cita.medico} · {cita.tipoConsulta}</p>
               </div>
               <span className={`estatus-badge estatus-badge--${cita.estatus}`}>{ESTATUS_LABEL[cita.estatus]}</span>
+              <DownloadPdfButton cita={cita} />
               {cita.estatus === 'pendiente' && (
                 <button type="button" className="clinic-appt-row__confirm" onClick={() => onConfirmar(cita.id)} title="Confirmar cita">
                   <CheckCircleIcon width={16} height={16} />

@@ -4,30 +4,13 @@ import { ReceptionGreetingHeader } from './components/ReceptionGreetingHeader';
 import { QuickAccessLinks } from './components/QuickAccessLinks';
 import { UpcomingAppointments } from '@/pages/Resumen/components/UpcomingAppointments';
 import './ResumenSecretaria.css';
+import { api } from '@/services/api';
 
 // TODO: BACKEND - Endpoint esperado: GET /api/clinica/resumen-recepcion
 // Agrega citas de TODOS los médicos (no un solo doctorId), a diferencia del resumen de médico.
+
 async function fetchResumenRecepcion() {
-  // --- MOCK: reemplazar por llamada real ---
-  // const res = await api.get('/clinica/resumen-recepcion');
-  // return res.data;
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        stats: {
-          citasHoy: 14,
-          confirmadas: 9,
-          pendientes: 5,
-          pacientesRegistradosHoy: 3,
-        },
-        proximasCitas: [
-          { id: 'c1', medico: 'Dr. Andrés Mora', especialidad: 'Medicina General', fechaLabel: 'Hoy', hora: '09:00', estatus: 'confirmada' },
-          { id: 'c2', medico: 'Dra. Valentina Cruz', especialidad: 'Cardiología', fechaLabel: 'Hoy', hora: '10:00', estatus: 'pendiente' },
-          { id: 'c3', medico: 'Dr. Marcos Ruiz', especialidad: 'Laboratorio', fechaLabel: 'Hoy', hora: '11:30', estatus: 'confirmada' },
-        ],
-      });
-    }, 400);
-  });
+  return api.get('/clinica/resumen-recepcion');
 }
 
 export const ResumenSecretaria = () => {

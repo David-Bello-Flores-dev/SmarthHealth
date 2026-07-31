@@ -1,4 +1,5 @@
 import React from 'react';
+import { DownloadPdfButton } from '@/components/appointments/DownloadPdfButton';
 
 const ESTATUS_LABEL = {
   confirmada: 'Confirmada',
@@ -22,6 +23,14 @@ export const AppointmentCard = ({ cita }) => {
           <span className={`estatus-badge estatus-badge--${cita.estatus}`}>
             {ESTATUS_LABEL[cita.estatus] ?? cita.estatus}
           </span>
+          
+          <span className={`estatus-badge estatus-badge--${cita.estatus}`}>
+            {ESTATUS_LABEL[cita.estatus] ?? cita.estatus}
+          </span>
+
+          <DownloadPdfButton cita={{ ...cita, medico: cita.medico }} />
+
+
         </div>
         <p className="appointment-card__tipo">{cita.tipoConsulta}</p>
         <p className="appointment-card__modalidad">{MODALIDAD_LABEL[cita.modalidad] ?? cita.modalidad}</p>

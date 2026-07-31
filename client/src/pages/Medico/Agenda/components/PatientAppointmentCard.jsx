@@ -1,5 +1,6 @@
 import React from 'react';
 import { VideoIcon, MapPinIcon } from '@/components/layout/Icons';
+import { DownloadPdfButton } from '@/components/appointments/DownloadPdfButton';
 
 const ESTATUS_LABEL = {
   confirmada: 'Confirmada',
@@ -20,6 +21,7 @@ export const PatientAppointmentCard = ({ cita }) => {
           <span className={`estatus-badge estatus-badge--${cita.estatus}`}>
             {ESTATUS_LABEL[cita.estatus] ?? cita.estatus}
           </span>
+          <DownloadPdfButton cita={{ ...cita, paciente: cita.paciente }} />
         </div>
         <p className="patient-appointment-card__tipo">{cita.tipoConsulta}</p>
         <p className="patient-appointment-card__modalidad">

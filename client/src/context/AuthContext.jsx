@@ -5,32 +5,25 @@ const AuthContext = createContext(null);
 // TODO: BACKEND - Endpoint esperado: POST /api/auth/login  { email, password }
 // Respuesta esperada: { token, user: { id, nombre, rol, pacienteId? } }
 // "rol" define qué layout/rutas ve: 'paciente' | 'medico' | 'secretaria' (futuro)
+// TODO: BACKEND - Endpoint esperado: POST /api/auth/login  { email, password }
+// Respuesta esperada: { token, user: { id, nombre, rol, pacienteId? / doctorId? } }
 async function loginRequest(email, password) {
-  // --- MOCK: reemplazar por llamada real ---
-  // const res = await fetch('/api/auth/login', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ email, password }),
-  // });
-  // if (!res.ok) throw new Error('Credenciales inválidas');
-  // return res.json();
-
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (email === 'maria@smarthealth.com' && password === '123456') {
-        resolve({ token: 'fake-jwt-token', user: { id: '123', nombre: 'María García', rol: 'paciente', pacienteId: '123' } });
-      } else if (email === 'mora@smarthealth.com' && password === '123456') {
-        resolve({ token: 'fake-jwt-token', user: { id: '456', nombre: 'Dr. Andrés Mora', rol: 'medico', doctorId: '456' } });
-      } else if (email === 'recepcion@smarthealth.com' && password === '123456') {
-        resolve({ token: 'fake-jwt-token', user: { id: '789', nombre: 'Lupita Hernandez', rol: 'secretaria' } });
-      } 
-      
-        else {
-        reject(new Error('Correo o contraseña incorrectos'));
-      }
-    }, 600);
+  const res = await fetch('http://localhost:4000/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
   });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || 'Credenciales inválidas');
+  }
+
+  return res.json();
 }
+
+
+
 
 const STORAGE_KEY = 'smarthealth_session';
 
