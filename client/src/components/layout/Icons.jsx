@@ -239,3 +239,23 @@ export const EyeIcon = (props) => (
     <circle cx="12" cy="12" r="3" />
   </svg>
 );
+
+export const DownloadIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5" />
+    <path d="M4 18v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+  </svg>
+);
+
+export const PhoneIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2C9.5 21 3 14.5 3 6a2 2 0 0 1 2-2Z" />
+  </svg>
+);
+
+export const MailIcon = (props) => (
+  <svg {...base} {...props}>
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="m3 7 9 6 9-6" />
+  </svg>
+);
