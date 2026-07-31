@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { XIcon } from '@/components/layout/Icons';
-import { PatientSearchBar } from '@/components/patient-search/PatientSearchBar';
 import { api } from '@/services/api';
 
-async function searchPacientes(_x, query) {
-  return api.get(`/pacientes?q=${encodeURIComponent(query)}`);
-}
-
-export const NewClinicApptModal = ({ fetchDoctores, onClose, onSubmit }) => {
+export const NewAppointmentModal = ({ fechaInicial, onClose, onCreated }) => {
   const [doctores, setDoctores] = useState([]);
   const [tiposConsulta, setTiposConsulta] = useState([]);
-  const [pacienteId, setPacienteId] = useState('');
-  const [pacienteNombre, setPacienteNombre] = useState('');
   const [doctorId, setDoctorId] = useState('');
   const [tipoConsultaId, setTipoConsultaId] = useState('');
+  const [fecha, setFecha] = useState(fechaInicial ?? '');
   const [hora, setHora] = useState('');
   const [modalidad, setModalidad] = useState('presencial');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
+  
+  const hoy = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD' de hoy
+
 
   useEffect(() => {
-    fetchDoctores().then(setDoctores);
-    api.get('/tipos-consulta').then(setTiposConsulta);
-  }, [fetchDoctores]);
+    api.get('/medicos').then(setDoctores).catch(() => {});
+    api.get('/tipos-consulta').then(setTiposConsulta).catch(() => {});
+  }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!pacienteId || !doctorId || !tipoConsultaId || !hora) return;
-    onSubmit({ pacienteId, doctorId, tipoConsultaId, hora: `${hora}:00`, modalidad });
+    if (!doctorId || !tipoConsultaId || !fecha || !hora) return;
+
+    setSaving(true);
+    setError(null);
+    try {
+      const nuevaCita = await api.post('/citas', {
+        doctorId, tipoConsultaId, fecha, hora: `${hora}:00`, modalidad,
+      });
+      onCreated(nuevaCita);
+    } catch (err) {
+      setError(err.message || 'No se pudo crear la cita');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -33,25 +44,21 @@ export const NewClinicApptModal = ({ fetchDoctores, onClose, onSubmit }) => {
       <div className="modal-card">
         <div className="modal-card__header">
           <h2>Nueva cita</h2>
-          <button type="button" className="modal-close-btn" onClick={onClose}><XIcon width={18} height={18} /></button>
+          <button type="button" className="modal-close-btn" onClick={onClose}>
+            <XIcon width={18} height={18} />
+          </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="new-appt-form">
-          <label className="new-appt-form__field">
-            <span>Paciente</span>
-            <PatientSearchBar
-              doctorId={null}
-              onSearch={searchPacientes}
-              onSelectPatient={(id, nombre) => { setPacienteId(id); setPacienteNombre(nombre); }}
-            />
-            {pacienteNombre && <p className="new-appt-form__selected">Seleccionado: {pacienteNombre}</p>}
-          </label>
+        {error && <div className="login-form__error">{error}</div>}
 
+        <form onSubmit={handleSubmit} className="new-appt-form">
           <label className="new-appt-form__field">
             <span>Médico</span>
             <select value={doctorId} onChange={(e) => setDoctorId(e.target.value)} required>
               <option value="">Selecciona un médico</option>
-              {doctores.map((d) => <option key={d.id} value={d.id}>{d.nombre}</option>)}
+              {doctores.map((d) => (
+                <option key={d.id} value={d.id}>{d.nombre} — {d.especialidad}</option>
+              ))}
             </select>
           </label>
 
@@ -64,8 +71,13 @@ export const NewClinicApptModal = ({ fetchDoctores, onClose, onSubmit }) => {
           </label>
 
           <label className="new-appt-form__field">
+            <span>Fecha</span>
+            <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} required />
+          </label>
+
+          <label className="new-appt-form__field">
             <span>Hora</span>
-            <input type="time" value={hora} onChange={(e) => setHora(e.target.value)} required />
+            <input type="time" min = {hoy} value={hora} onChange={(e) => setHora(e.target.value)} required />
           </label>
 
           <label className="new-appt-form__field">
@@ -77,8 +89,10 @@ export const NewClinicApptModal = ({ fetchDoctores, onClose, onSubmit }) => {
           </label>
 
           <div className="nueva-receta-form__actions">
-            <button type="button" className="btn-cancel" onClick={onClose}>Cancelar</button>
-            <button type="submit" className="btn-submit-receta">Crear cita</button>
+            <button type="button" className="btn-cancel" onClick={onClose} disabled={saving}>Cancelar</button>
+            <button type="submit" className="btn-submit-receta" disabled={saving}>
+              {saving ? 'Agendando...' : 'Agendar cita'}
+            </button>
           </div>
         </form>
       </div>
