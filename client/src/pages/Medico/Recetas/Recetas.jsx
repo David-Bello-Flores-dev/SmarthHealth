@@ -5,73 +5,36 @@ import { RecetaTabs } from '@/components/prescriptions/RecetaTabs';
 import { RecetaCard } from '@/components/prescriptions/RecetaCard';
 import { NuevaRecetaModal } from './components/NuevaRecetaModal';
 import './Recetas.css';
+import { api } from '@/services/api';
 
 // TODO: BACKEND - mismo directorio de pacientes que usa Expedientes.jsx.
 // Considerar centralizar esta función en un solo servicio (services/pacientesService.js)
 // en vez de repetirla en cada pantalla que necesita buscar pacientes.
-async function searchPacientes(doctorId, query) {
-  const TODOS = [
-    { id: '123', nombre: 'María García López' },
-    { id: '456', nombre: 'Carlos Méndez' },
-    { id: '789', nombre: 'Ana López' },
-    { id: '321', nombre: 'Pedro Ruiz' },
-  ];
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const q = query.trim().toLowerCase();
-      resolve(q ? TODOS.filter((p) => p.nombre.toLowerCase().includes(q)) : TODOS);
-    }, 250);
-  });
+async function searchPacientes(_doctorId, query) {
+  return api.get(`/pacientes?q=${encodeURIComponent(query)}`);
 }
 
 // TODO: BACKEND - Endpoint esperado: GET /api/pacientes/:patientId/recetas
 // Mismo endpoint que RecetasMedicas.jsx (paciente); el backend solo valida
 // que el médico autenticado tenga permiso de ver a ese paciente.
 async function fetchRecetas(patientId) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 'RX-2026-001',
-          fechaEmision: '2026-06-10',
-          medico: { nombre: 'Dr. Andrés Mora', especialidad: 'Medicina General', cedula: '12345678' },
-          paciente: { nombre: 'María García López', fechaNacimiento: '1985-03-15' },
-          diagnostico: 'Hipertensión arterial + seguimiento metabólico',
-          medicamentos: [
-            { id: 1, nombre: 'Enalapril', dosis: '10 mg', via: 'Oral', frecuencia: 'Cada 12 horas', duracion: '30 días', instrucciones: 'Tomar con agua, preferentemente en ayunas' },
-            { id: 2, nombre: 'Metformina', dosis: '500 mg', via: 'Oral', frecuencia: 'Cada 24 horas', duracion: '30 días', instrucciones: 'Tomar con los alimentos' },
-          ],
-        },
-      ]);
-    }, 400);
-  });
+  return api.get(`/pacientes/${patientId}/recetas`);
 }
 
 // TODO: BACKEND - Endpoint esperado: POST /api/pacientes/:patientId/recetas
 // Body esperado: { diagnostico, medicamentos: [{ nombre, dosis, via, frecuencia, duracion, instrucciones }] }
 // El backend debe generar el folio (RX-2026-XXX) y la fecha de emisión; el front no las inventa.
-async function crearReceta(doctorInfo, patientId, payload) {
-  // --- MOCK: reemplazar por llamada real ---
-  // const res = await api.post(`/pacientes/${patientId}/recetas`, payload);
-  // return res.data;
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        id: `RX-2026-${Math.floor(100 + Math.random() * 900)}`,
-        fechaEmision: new Date().toISOString().slice(0, 10),
-        medico: doctorInfo,
-        paciente: payload.paciente,
-        diagnostico: payload.diagnostico,
-        medicamentos: payload.medicamentos.map((m, i) => ({ id: i + 1, ...m })),
-      });
-    }, 500);
+async function crearReceta(_doctorInfo, patientId, payload) {
+  return api.post(`/pacientes/${patientId}/recetas`, {
+    diagnostico: payload.diagnostico,
+    medicamentos: payload.medicamentos,
   });
 }
 
 export const Recetas = () => {
   const { doctorId } = useOutletContext();
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedPatientId = searchParams.get('paciente') ?? '123';
+  const selectedPatientId = searchParams.get('paciente') ?? '1';
   const selectedPatientName = searchParams.get('nombre') ?? 'María García López'; // TODO: BACKEND - idealmente vendría del detalle del paciente, no de la URL
 
   const [recetas, setRecetas] = useState([]);

@@ -15,6 +15,7 @@ import { Pacientes } from '@/pages/Medico/Pacientes/Pacientes';
 import { ResumenSecretaria } from '@/pages/Secretaria/Resumen/ResumenSecretaria';
 import { CitasSecretaria } from '@/pages/Secretaria/Citas/CitasSecretaria';
 import { ExpedientesSecretaria } from '@/pages/Secretaria/Expedientes/ExpedientesSecretaria';
+import { Configuracion } from '@/pages/Configuracion/Configuracion';
 
 const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
@@ -47,7 +48,9 @@ const router = createBrowserRouter([
       // --- Secretaaria ---
       { path: 'secretaria/resumen', element: <ResumenSecretaria /> },
       { path: 'secretaria/citas', element: <CitasSecretaria /> },
-      { path: 'secretaria/expedientes', element: <ExpedientesSecretaria /> }
+      { path: 'secretaria/expedientes', element: <ExpedientesSecretaria /> },
+
+      { path: 'configuracion', element: <Configuracion /> },
     ],
   },
 ]);
