@@ -5,39 +5,17 @@ import { PatientSearchBar } from '@/components/patient-search/PatientSearchBar';
 import { PatientSummaryCard } from '@/components/clinical-record/PatientSummaryCard';
 import { LabResults } from '@/components/clinical-record/LabResults';
 import './ExpedientesSecretaria.css';
+import { api } from '@/services/api';
 
-async function searchPacientes(_x, query) {
-  const TODOS = [
-    { id: '123', nombre: 'María García López' },
-    { id: '456', nombre: 'Carlos Méndez' },
-  ];
-  return new Promise((resolve) => setTimeout(() => {
-    const q = query.trim().toLowerCase();
-    resolve(q ? TODOS.filter((p) => p.nombre.toLowerCase().includes(q)) : TODOS);
-  }, 200));
+async function searchPacientes(_doctorId, query) {
+  return api.get(`/pacientes?q=${encodeURIComponent(query)}`);
 }
 
 // TODO: BACKEND - Endpoint esperado: GET /api/pacientes/:patientId/expediente-basico
 // Version reducida del expediente completo: SIN padecimientos crónicos ni notas clínicas,
 // solo lo necesario para atender dudas de mostrador (alergias, tipo de sangre, laboratorio).
 async function fetchExpedienteBasico(patientId) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        paciente: {
-          nombre: 'María García López', iniciales: 'MG', fechaNacimiento: '1985-03-15', edad: 41,
-          tipoSangre: 'O+', pesoKg: 68, tallaM: 1.65, alergias: ['Penicilina', 'Sulfas'],
-        },
-        laboratorio: {
-          ultimaToma: '2026-06-05',
-          resultados: [
-            { id: 1, nombre: 'Glucosa en ayunas', valor: '108 mg/dL', refMin: 70, refMax: 100, refUnidad: 'mg/dL', estatus: 'elevado' },
-            { id: 3, nombre: 'Colesterol total', valor: '185 mg/dL', refMax: 200, refUnidad: 'mg/dL', estatus: 'normal' },
-          ],
-        },
-      });
-    }, 300);
-  });
+  return api.get(`/pacientes/${patientId}/expediente-basico`);
 }
 
 export const ExpedientesSecretaria = () => {

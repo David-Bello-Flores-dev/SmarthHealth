@@ -1,8 +1,8 @@
 import React from 'react';
+import { UserMenu } from './UserMenu';
+import { NotificationsMenu } from './NotificationsMenu';
 import './TopBar.css';
-import { BellIcon } from './Icons';
 
-// TODO: title/subtitle/userInitial deben venir de la ruta activa y del usuario autenticado
 export const TopBar = ({ title = '', subtitle = '', userInitial = '' }) => {
   return (
     <header className="dashboard-topbar">
@@ -12,11 +12,8 @@ export const TopBar = ({ title = '', subtitle = '', userInitial = '' }) => {
       </div>
 
       <div className="topbar-actions">
-        <button type="button" className="topbar-icon-btn" aria-label="Notificaciones">
-          <BellIcon width={18} height={18} />
-          <span className="topbar-notification-dot" />
-        </button>
-        <span className="topbar-avatar">{userInitial}</span>
+        <NotificationsMenu />
+        <UserMenu userInitial={userInitial} />
       </div>
     </header>
   );
