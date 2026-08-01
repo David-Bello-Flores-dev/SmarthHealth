@@ -1,0 +1,23 @@
+name: Deploy Producción a Azure
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy-produccion:
+    name: Despliegue en Servidor Azure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Conectar a Azure y Desplegar
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}        
+          username: ${{ secrets.USERNAME }}    
+          key: ${{ secrets.SSH_KEY }}      
+          script: |
+            cd /home/${{ secrets.USERNAME }}/ryd-u
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
