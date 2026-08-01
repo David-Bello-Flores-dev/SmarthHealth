@@ -1,0 +1,70 @@
+# =============================================================
+#  SmarthHealth — docker-compose
+#  Levanta toda la pila: MySQL + API (backend) + Frontend (nginx)
+#
+#  Uso:
+#    cp .env.example .env   (opcional, ajusta credenciales/puertos)
+#    docker compose up -d --build
+#
+#  Acceso:
+#    Frontend  -> http://localhost:80   (según FRONTEND_PORT)
+#    API       -> http://localhost:3000 (según BACKEND_PORT)
+#    MySQL     -> localhost:3306        (según MYSQL_PORT)
+# =============================================================
+
+services:
+  db:
+    image: mysql:8.4
+    container_name: smarth_db
+    restart: unless-stopped
+    environment:
+      # Credenciales (se pueden sobreescribir desde .env)
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-smarth_root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-SmarthHealth}
+      MYSQL_USER: ${MYSQL_USER:-smarth}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-smarth123}
+    volumes:
+      # Persistencia de datos
+      - db_data:/var/lib/mysql
+      # Inicialización del esquema (solo la versión MySQL del script;
+      # los sch_*.sql son sintaxis PostgreSQL y no aplican aquí)
+      - ./db/SmarthHealth.sql:/docker-entrypoint-initdb.d/01-SmarthHealth.sql:ro
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  backend:
+    build:
+      context: ./server
+    container_name: smarth_backend
+    restart: unless-stopped
+    environment:
+      # El backend lee estas variables en src/config/db.js
+      DB_HOST: db
+      DB_USER: ${MYSQL_USER:-smarth}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-smarth123}
+      DB_NAME: ${MYSQL_DATABASE:-SmarthHealth}
+      PORT: 3000
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./client
+    container_name: smarth_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
