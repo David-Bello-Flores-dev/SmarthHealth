@@ -83,10 +83,10 @@ export const Configuracion = () => {
       {/* TODO: BACKEND - sección de cambio de contraseña. Requiere endpoint
           PATCH /api/auth/password { passwordActual, passwordNueva } que revalide
           la contraseña actual con bcrypt.compare antes de permitir el cambio. */}
-      <section className="config-card config-card--placeholder">
+      {/*<section className="config-card config-card--placeholder">
         <h3>Seguridad</h3>
         <p>Próximamente: cambio de contraseña.</p>
-      </section>
+      </section>*/}
     </div>
   );
 };

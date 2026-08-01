@@ -73,9 +73,9 @@ export const LoginForm = () => {
       <div className="login-form__row">
         <label className="login-form__checkbox">
           <input type="checkbox" /> Recordarme
-        </label>
-        {/* TODO: BACKEND - conectar a flujo real de recuperación de contraseña */}
-        <a href="/recuperar-password">¿Olvidaste tu contraseña?</a>
+         </label>
+        {/*TODO: BACKEND - conectar a flujo real de recuperación de contraseña 
+        <a href="/recuperar-password">¿Olvidaste tu contraseña?</a>*/}
       </div>
 
       <button type="submit" className="login-form__submit" disabled={loading}>
