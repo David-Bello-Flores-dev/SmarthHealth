@@ -14,8 +14,8 @@ export const pool = mysql.createPool({
   connectionLimit: 10,
   // Azure requiere SSL en la conexión; rejectUnauthorized: false permite
   // funcionar tanto en local como en Azure.
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  //ssl: {
+    //rejectUnauthorized: false,
+  //},
   multipleStatements: true,
 });

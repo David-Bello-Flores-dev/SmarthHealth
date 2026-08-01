@@ -19,8 +19,8 @@ export const MisCitas = () => {
   const { pacienteId } = useOutletContext();
   const [showModal, setShowModal] = useState(false);
 
-  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 5, 1)); // Junio 2026
-  const [selectedDateKey, setSelectedDateKey] = useState(toDateKey(new Date(2026, 5, 10)));
+  const [currentMonth, setCurrentMonth] = useState(new Date()); // Junio 2026
+  const [selectedDateKey, setSelectedDateKey] = useState(toDateKey(new Date()));
   const [citas, setCitas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
