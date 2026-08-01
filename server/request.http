@@ -1,0 +1,212 @@
+@baseUrl = http://localhost:4000/api
+@tokenPaciente = 
+@tokenMedico = 
+@tokenSecretaria = 
+
+### 1. Login como paciente
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "maria@smarthealth.com",
+  "password": "123456"
+}
+
+### 2. Login como médico
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "mora@smarthealth.com",
+  "password": "123456"
+}
+
+### 3. Login como secretaria
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "recepcion@smarthealth.com",
+  "password": "123456"
+}
+
+### 4. Login con credenciales incorrectas (debe dar 401)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "maria@smarthealth.com",
+  "password": "clave-incorrecta"
+}
+
+### 5. Validar sesión (/me) - pega el token del paso 1
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{tokenPaciente}}
+
+### 6. Expediente completo (como paciente viendo el suyo propio)
+GET {{baseUrl}}/pacientes/1/expediente
+Authorization: Bearer {{tokenPaciente}}
+
+### 7. Expediente completo (como médico viendo cualquier paciente)
+GET {{baseUrl}}/pacientes/1/expediente
+Authorization: Bearer {{tokenMedico}}
+
+### 8. Expediente de OTRO paciente siendo paciente (debe dar 403)
+GET {{baseUrl}}/pacientes/999/expediente
+Authorization: Bearer {{tokenPaciente}}
+
+### 9. Paciente que no existe (debe dar 404)
+GET {{baseUrl}}/pacientes/9999/expediente
+Authorization: Bearer {{tokenMedico}}
+
+### 10. Sin token (debe dar 401)
+GET {{baseUrl}}/pacientes/1/expediente
+
+### 11. Expediente básico (solo secretaria)
+GET {{baseUrl}}/pacientes/1/expediente-basico
+Authorization: Bearer {{tokenSecretaria}}
+
+### 12. Expediente básico intentado por paciente (debe dar 403)
+GET {{baseUrl}}/pacientes/1/expediente-basico
+Authorization: Bearer {{tokenPaciente}}
+
+### 13. Buscar pacientes (secretaria)
+GET {{baseUrl}}/pacientes?q=maria
+Authorization: Bearer {{tokenSecretaria}}
+
+### 14. Buscar pacientes sin query (regresa todos)
+GET {{baseUrl}}/pacientes
+Authorization: Bearer {{tokenMedico}}
+
+### 15. Citas del paciente en junio 2026
+GET {{baseUrl}}/pacientes/1/citas?mes=2026-06
+Authorization: Bearer {{tokenPaciente}}
+
+### 16. Agenda del médico en junio 2026
+GET {{baseUrl}}/medicos/1/citas?mes=2026-06
+Authorization: Bearer {{tokenMedico}}
+
+### 17. Agenda completa de la clínica (secretaria)
+GET {{baseUrl}}/clinica/citas?mes=2026-06
+Authorization: Bearer {{tokenSecretaria}}
+
+### 18. Listado de médicos (para el selector del modal)
+GET {{baseUrl}}/medicos
+Authorization: Bearer {{tokenSecretaria}}
+
+### 19. Catálogo de tipos de consulta
+GET {{baseUrl}}/tipos-consulta
+Authorization: Bearer {{tokenSecretaria}}
+
+### 20. Crear cita nueva
+POST {{baseUrl}}/citas
+Authorization: Bearer {{tokenSecretaria}}
+Content-Type: application/json
+
+{
+  "pacienteId": 1,
+  "doctorId": 1,
+  "tipoConsultaId": 1,
+  "fecha": "2026-06-20",
+  "hora": "11:00:00",
+  "modalidad": "presencial"
+}
+
+### 21. Crear cita en el MISMO horario que la anterior (debe dar 409)
+POST {{baseUrl}}/citas
+Authorization: Bearer {{tokenSecretaria}}
+Content-Type: application/json
+
+{
+  "pacienteId": 1,
+  "doctorId": 1,
+  "tipoConsultaId": 1,
+  "fecha": "2026-06-20",
+  "hora": "11:00:00",
+  "modalidad": "presencial"
+}
+
+### 22. Confirmar una cita pendiente (usa el id que te regresó el paso 20)
+PATCH {{baseUrl}}/citas/3
+Authorization: Bearer {{tokenSecretaria}}
+Content-Type: application/json
+
+{
+  "estatus": "confirmada"
+}
+
+### 23. Recetas del paciente
+GET {{baseUrl}}/pacientes/1/recetas
+Authorization: Bearer {{tokenPaciente}}
+
+### 24. Mismo endpoint pero como médico
+GET {{baseUrl}}/pacientes/1/recetas
+Authorization: Bearer {{tokenMedico}}
+
+### 25. Recetas de OTRO paciente siendo paciente (debe dar 403)
+GET {{baseUrl}}/pacientes/999/recetas
+Authorization: Bearer {{tokenPaciente}}
+
+### 26. Crear receta nueva (como médico)
+POST {{baseUrl}}/pacientes/1/recetas
+Authorization: Bearer {{tokenMedico}}
+Content-Type: application/json
+
+{
+  "diagnostico": "Faringitis aguda",
+  "medicamentos": [
+    { "nombre": "Amoxicilina", "dosis": "500 mg", "via": "Oral", "frecuencia": "Cada 8 horas", "duracion": "7 días", "instrucciones": "Tomar con alimentos" }
+  ]
+}
+
+### 27. Crear receta sin diagnóstico (debe dar 400)
+POST {{baseUrl}}/pacientes/1/recetas
+Authorization: Bearer {{tokenMedico}}
+Content-Type: application/json
+
+{
+  "diagnostico": "",
+  "medicamentos": [
+    { "nombre": "Amoxicilina", "dosis": "500 mg", "frecuencia": "Cada 8 horas", "duracion": "7 días" }
+  ]
+}
+
+### 28. Intentar crear receta como PACIENTE (debe dar 403)
+POST {{baseUrl}}/pacientes/1/recetas
+Authorization: Bearer {{tokenPaciente}}
+Content-Type: application/json
+
+{
+  "diagnostico": "Intento no autorizado",
+  "medicamentos": [
+    { "nombre": "Paracetamol", "dosis": "500 mg", "frecuencia": "Cada 8 horas", "duracion": "3 días" }
+  ]
+}
+
+### 29. Intentar crear receta como SECRETARIA (debe dar 403)
+POST {{baseUrl}}/pacientes/1/recetas
+Authorization: Bearer {{tokenSecretaria}}
+Content-Type: application/json
+
+{
+  "diagnostico": "Intento no autorizado",
+  "medicamentos": [
+    { "nombre": "Paracetamol", "dosis": "500 mg", "frecuencia": "Cada 8 horas", "duracion": "3 días" }
+  ]
+}
+
+### 30. Resumen del paciente
+GET {{baseUrl}}/pacientes/1/resumen
+Authorization: Bearer {{tokenPaciente}}
+
+### 31. Resumen del médico
+GET {{baseUrl}}/medicos/1/resumen
+Authorization: Bearer {{tokenMedico}}
+
+### 32. Resumen de recepción
+GET {{baseUrl}}/clinica/resumen-recepcion
+Authorization: Bearer {{tokenSecretaria}}
+
+### 33. Listado completo de pacientes del médico
+GET {{baseUrl}}/medicos/1/pacientes
+Authorization: Bearer {{tokenMedico}}
